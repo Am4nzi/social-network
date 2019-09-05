@@ -10,3 +10,11 @@ exports.addUser = (fname, lname, email, password) => {
         [fname, lname, email, password]
     );
 };
+
+exports.getPasswordForCheck = function(email) {
+    return db
+        .query(`SELECT password, id FROM users WHERE email=$1`, [email])
+        .then(({ rows }) => {
+            return rows;
+        });
+};

@@ -1,0 +1,14 @@
+* {
+    background: rgb(255,0,78);
+    background: linear-gradient(248deg, rgba(255,0,78,1) 0%, rgba(255,0,86,1) 35%, rgba(255,0,108,1) 100%);
+}
+
+h1 {
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+h2 {
+    font-family: Arial, sans-serif;
+    color: #fff;
+}

@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Welcome from '../components/welcome';
-
+import Login from '../components/login';
+import Hello from '../components/hello';
+import { App } from '../components/app';
 
 let elem;
 if (location.pathname === '/welcome') {
     elem = <Welcome />;
-    //if user is on /welcome route, tha tmeans user is NOT logged in.
-    //and we should render the Registration route.
 } else {
-    elem = <p>my logo</p>;
-    // if else runs, that means user IS logged in. For now we will just render an image.
+    elem = <App />;
 }
-
-
 
 //This is the only place we need to call ReactDom.render
 ReactDOM.render(
