@@ -12,7 +12,7 @@ export default class BioEditor extends React.Component {
         this.isEditing = this.isEditing.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showEditProfileButton = this.showEditProfileButton.bind(this);
-        this.onClick2 = this.onClick2.bind(this);
+        this.handleSubmitandshowEditProfileButton = this.handleSubmitandshowEditProfileButton.bind(this);
     }
 
     isEditing(e) {
@@ -38,7 +38,7 @@ export default class BioEditor extends React.Component {
         // this.setState({value: this.state});
     }
 
-    onClick2() {
+    handleSubmitandshowEditProfileButton() {
         this.handleSubmit();
         this.showEditProfileButton();
     }
@@ -59,7 +59,7 @@ export default class BioEditor extends React.Component {
         return (
             <React.Fragment>
                 {console.log("Logging this.state in render: ", this.state)}
-                <form onSubmit={this.onClick2 }>
+                <form onSubmit={this.handleSubmitandshowEditProfileButton }>
                     {this.isEditing && (
                         <div>
                             <textarea onChange={this.isEditing}></textarea>

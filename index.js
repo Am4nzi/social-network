@@ -141,7 +141,6 @@ app.post("/addProfileImage", uploader.single("file"), s3.upload, (req, res) => {
                 // console.log("LOGGING data: ", data);
                 // console.log("LOGGING data[0]: ", data[0]);
                 // console.log("LOGGING data[0]profileimgurl: ", data[0].profileimgurl);
-                console.log("LOGGING data", data[0] );
                 res.json(data[0].profileimgurl);
             })
             .catch(err => {
@@ -156,7 +155,7 @@ app.post("/addProfileImage", uploader.single("file"), s3.upload, (req, res) => {
 
 app.post("/getUserInfo", (req, res) => {
     db.getUserInfo(req.session.userId).then(data => {
-        console.log(data);
+        // console.log(data);
         res.json(data);
     }).catch(err => {
         console.log("ERROR in /addProfileImage in index.js", err);

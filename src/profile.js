@@ -7,20 +7,17 @@ export default function Profile({
     lname,
     bio,
     imageurl,
-    showBioEditor,
     bioEditorIsVisible,
     editProfileButtonIsVisible,
-    hideEditProfileButton,
-    id,
-    onClick,
-    setBio
+    showBioAndEditProfileButton,
 }) {
     imageurl = imageurl || "/css/img/profiledefault.svg";
 
-
     return (
         <React.Fragment>
-            {console.log("editProfileButtonIsVisible in profile.js: ", { editProfileButtonIsVisible })}
+            {console.log("editProfileButtonIsVisible in profile.js: ", {
+                editProfileButtonIsVisible
+            })}
             <div>
                 <h1>
                     Hello {fname} {lname}
@@ -28,15 +25,31 @@ export default function Profile({
                 <p>Your bio: {bio}</p>
             </div>
             {bioEditorIsVisible && <BioEditor />}
-            {editProfileButtonIsVisible &&
-            <a onClick={onClick} className="navbutton">
-                Edit Profile
-            </a>
-            }
+
+            <div>
+                {bio ? (
+                    <div>
+                        {editProfileButtonIsVisible && (
+                            <a onClick={showBioAndEditProfileButton} className="navbutton">
+                                Edit Profile
+                            </a>
+                        )}
+                    </div>
+                ) : (
+                    <div>
+                        {editProfileButtonIsVisible && (
+                            <a onClick={showBioAndEditProfileButton} className="navbutton">
+                                Add Profile
+                            </a>
+                        )}
+                    </div>
+                )}
+            </div>
+
+
             <div className="bigimage">
                 <ProfilePic fname={fname} lname={lname} imageurl={imageurl} />
             </div>
-
         </React.Fragment>
     );
 }

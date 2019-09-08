@@ -16,7 +16,7 @@ export default class App extends React.Component {
             id: "",
             uploaderIsVisible: false,
             editProfileButtonIsVisible: true,
-            bioEditorIsVisible: false
+            bioEditorIsVisible: false,
         };
         this.showModal = this.showModal.bind(this);
         this.getUserData = this.getUserData.bind(this);
@@ -24,7 +24,7 @@ export default class App extends React.Component {
         this.hideEditProfileButton = this.hideEditProfileButton.bind(this);
         this.showEditProfileButton = this.showEditProfileButton.bind(this);
         this.setImage = this.setImage.bind(this);
-        this.onClick = this.onClick.bind(this);
+        this.showBioAndEditProfileButton = this.showBioAndEditProfileButton.bind(this);
     }
 
     showModal() {
@@ -39,7 +39,7 @@ export default class App extends React.Component {
         }
     }
 
-    onClick() {
+    showBioAndEditProfileButton() {
         this.showBioEditor();
         this.hideEditProfileButton();
     }
@@ -157,16 +157,12 @@ export default class App extends React.Component {
                     showBioEditor={this.showBioEditor}
                     bioEditorIsVisible={this.state.bioEditorIsVisible}
                     hideEditProfileButton={this.hideEditProfileButton}
-                    onClick={this.onClick}
+                    showBioAndEditProfileButton={this.showBioAndEditProfileButton}
                     editProfileButtonIsVisible={
                         this.state.editProfileButtonIsVisible
                     }
                 />
-                <BioEditor
-                    editProfileButtonIsVisible={this.state.editProfileButtonIsVisible}
-                    showEditProfileButton={this.showEditProfileButton}
-                    bioEditorIsVisible={this.state.bioEditorIsVisible}
-                />
+
             </React.Fragment>
         );
     }
