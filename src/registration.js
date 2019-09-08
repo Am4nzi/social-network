@@ -1,16 +1,19 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
+import axios from "./axios";
 
-export default class Index extends React.Component {
+export default class Registration extends React.Component {
     constructor(props) {
         super(props);
-
+        //The lines below is similar in function to Vue's me/this. Binding fixes the scope issue with this.
+        //It saying that this refers to hello.
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.state = { error: "" };
+        this.state = {error: ""};
     }
 
     handleChange(e) {
+        // console.log('handleChange is running');
         this.setState(
             {
                 [e.target.name]: e.target.value
@@ -21,26 +24,28 @@ export default class Index extends React.Component {
     }
 
     handleSubmit(e) {
-        console.log("handleSubmit is running in login");
+        console.log("handleSubmit is running");
         let data = this.state;
+        console.log("Logging data in handleSubmit: ", data);
         axios
-            .post("/login", { data })
+            .post("/registration", { data })
             .then(res => {
                 console.log("Logging res in handleSubmit", res);
-                if (res.data.message === "error") {
+                if (res.data.message) {
                     this.handleError();
                 } else {
-                    location.replace("/welcome");
+                    location.replace("/");
                 }
             })
             .catch(function(err) {
                 console.log("Error in handleSubmit: ", err);
             });
         e.preventDefault();
+        // this.setState({value: this.state});
     }
 
     handleError() {
-        console.log("ALL YOUR BASE ARE BELONG TO US.");
+        console.log("A LOGIN ERROR HAS OCCURED, PLEASE TRY AGAIN.");
         this.setState({
             error: true
         });
@@ -48,24 +53,37 @@ export default class Index extends React.Component {
 
     render() {
         return (
+
             <div>
                 {console.log("this.error in render", this.state.error)}
-                <h1 id="helloId">Log in</h1>
-                {this.state.error && <h2>ALL YOUR BASE ARE BELONG TO US.</h2>}
+                {this.state.error && (<h2>A LOGIN ERROR HAS OCCURED, PLEASE TRY AGAIN.</h2>)}
+                <h1 id="helloId">Hello!</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input
+                        name="fname"
+                        placeholder="First Name"
+                        onChange={this.handleChange}
+                    />
+                    <input
+                        name="lname"
+                        placeholder="Last Name"
+                        onChange={this.handleChange}
+                    />
+                    <input
                         name="email"
-                        placeholder="Email"
+                        type="email"
+                        placeholder="email"
                         onChange={this.handleChange}
                     />
                     <input
                         name="password"
                         type="password"
-                        placeholder="Password"
+                        placeholder="password"
                         onChange={this.handleChange}
                     />
                     <button>Submit</button>
                 </form>
+
             </div>
         );
     }

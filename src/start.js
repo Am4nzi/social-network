@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Welcome from '../components/welcome';
-import Login from '../components/login';
-import Hello from '../components/hello';
-import { App } from '../components/app';
+import Welcome from './welcome';
+import Login from './login';
+import App from './app';
+import Uploader from './uploader';
+
 
 let elem;
 if (location.pathname === '/welcome') {

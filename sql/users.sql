@@ -5,6 +5,8 @@ CREATE TABLE users(
     fname VARCHAR(100) NOT NULL,
     lname VARCHAR(100) NOT NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
+    bio VARCHAR,
     password VARCHAR NOT NULL,
+    profileimgurl VARCHAR,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
