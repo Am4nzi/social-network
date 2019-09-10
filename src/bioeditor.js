@@ -5,22 +5,20 @@ export default class BioEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            editProfileButtonIsVisible: props.editProfileButtonIsVisible,
-            showEditProfileButton: props.showEditProfileButton,
-            bioEditorIsVisible: props.bioEditorIsVisible
+
         };
         this.isEditing = this.isEditing.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showEditProfileButton = this.showEditProfileButton.bind(this);
-        this.handleSubmitandshowEditProfileButton = this.handleSubmitandshowEditProfileButton.bind(this);
+        this.handleSubmitandshowEditProfileButton = this.handleSubmitandshowEditProfileButton.bind(
+            this
+        );
     }
 
     isEditing(e) {
-        console.log("this is working", this.props);
         this.setState(
-
             {
-                bio: e.target.value,
+                bio: e.target.value
             },
             () => console.log("this.props.bio in isEditing: ", this.props.bio)
         );
@@ -58,11 +56,15 @@ export default class BioEditor extends React.Component {
     render() {
         return (
             <React.Fragment>
+                {console.log("Logging this.props in render: ", this.props.bio)}
                 {console.log("Logging this.state in render: ", this.state)}
-                <form onSubmit={this.handleSubmitandshowEditProfileButton }>
+                <form onSubmit={this.handleSubmitandshowEditProfileButton}>
                     {this.isEditing && (
                         <div>
-                            <textarea onChange={this.isEditing}></textarea>
+                            <textarea
+                                onChange={this.isEditing}
+                                defaultValue={this.props.bio}
+                            ></textarea>
                         </div>
                     )}
 

@@ -43,6 +43,11 @@ app.use(
     })
 );
 
+// ******************************************************
+// ***********REDIRECT IF COOKIES NOT PRESENT************
+// ******************************************************
+
+
 if (process.env.NODE_ENV != "production") {
     app.use(
         "/bundle.js",
@@ -63,8 +68,7 @@ app.post("/registration", (req, res) => {
     let password = req.body.data.password;
     if ((fname, lname, email, password)) {
         hash(password)
-            .then(hash =>
-                db.addUser(fname, lname, email, hash))
+            .then(hash => db.addUser(fname, lname, email, hash))
             .then(data => {
                 req.session.userId = data.rows[0].id;
                 console.log("LOGGING data.rows in /registration", data.rows);
@@ -91,7 +95,7 @@ app.post("/addBio", (req, res) => {
                 // console.log("LOGGING data: ", data);
                 // console.log("LOGGING data[0]: ", data[0]);
                 // console.log("LOGGING data[0]profileimgurl: ", data[0].profileimgurl);
-                console.log("LOGGING data", data[0] );
+                console.log("LOGGING data", data[0]);
                 res.json(data[0].bio);
             })
             .catch(err => {
@@ -134,7 +138,7 @@ app.post("/login", (req, res) => {
 app.post("/addProfileImage", uploader.single("file"), s3.upload, (req, res) => {
     let profileimgurl = config.s3Url + req.file.filename;
     let id = req.session.userId;
-    console.log("LOGGING PROFILE URL", config.s3Url + req.file.filename );
+    console.log("LOGGING PROFILE URL", config.s3Url + req.file.filename);
     if (req.file) {
         db.uploadProfilePic(id, profileimgurl)
             .then(data => {
@@ -153,13 +157,32 @@ app.post("/addProfileImage", uploader.single("file"), s3.upload, (req, res) => {
     }
 });
 
-app.post("/getUserInfo", (req, res) => {
-    db.getUserInfo(req.session.userId).then(data => {
-        // console.log(data);
-        res.json(data);
-    }).catch(err => {
-        console.log("ERROR in /addProfileImage in index.js", err);
-    });
+app.get("/getUserInfo", (req, res) => {
+    db.getUserInfo(req.session.userId)
+        .then(data => {
+            // console.log(data);
+            res.json(data);
+        })
+        .catch(err => {
+            console.log("ERROR in /addProfileImage in index.js", err);
+        });
+});
+
+app.get("/getOtherProfileInfo/:id", (req, res) => {
+    console.log("Logging req.params.id in /getOtherProfileInfo", req.params.id);
+    let removeColon = req.params.id;
+    while (removeColon.charAt(0) === ":") {
+        removeColon = removeColon.substr(1);
+    }
+    console.log("removeColon: ", removeColon);
+    db.getOtherProfileInfo(removeColon)
+        .then(data => {
+            // console.log(data);
+            res.json(data);
+        })
+        .catch(err => {
+            console.log("ERROR in /addProfileImage in index.js", err);
+        });
 });
 
 // *******************************************
@@ -167,9 +190,22 @@ app.post("/getUserInfo", (req, res) => {
 // *******************************************
 app.get("/logout", (req, res) => {
     req.session = null;
-    res.redirect("/welcome#/login");
+    res.redirect("/welcome");
 });
 
+// app.get("/welcome", (req, res) => {
+//     if (req.session.userId) {
+//         res.redirect("/");
+//     }
+// });
+//
+// app.get("*", function(req, res) {
+//     if (!req.session.userId) {
+//         res.redirect("/welcome");
+//     } else {
+//         res.sendFile(__dirname + "/index.html");
+//     }
+// });
 
 app.get("*", function(req, res) {
     res.sendFile(__dirname + "/index.html");

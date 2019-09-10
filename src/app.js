@@ -3,7 +3,9 @@ import ProfilePic from "./profilepic";
 import Profile from "./profile";
 import Uploader from "./uploader";
 import BioEditor from "./bioeditor";
+import OtherProfile from "./otherprofile";
 import axios from "./axios";
+import { BrowserRouter, Route } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor() {
@@ -16,7 +18,7 @@ export default class App extends React.Component {
             id: "",
             uploaderIsVisible: false,
             editProfileButtonIsVisible: true,
-            bioEditorIsVisible: false,
+            bioEditorIsVisible: false
         };
         this.showModal = this.showModal.bind(this);
         this.getUserData = this.getUserData.bind(this);
@@ -24,7 +26,25 @@ export default class App extends React.Component {
         this.hideEditProfileButton = this.hideEditProfileButton.bind(this);
         this.showEditProfileButton = this.showEditProfileButton.bind(this);
         this.setImage = this.setImage.bind(this);
-        this.showBioAndEditProfileButton = this.showBioAndEditProfileButton.bind(this);
+        this.showBioAndEditProfileButton = this.showBioAndEditProfileButton.bind(
+            this
+        );
+    }
+
+    componentDidMount() {
+        axios
+            .get("/getUserInfo")
+            .then(res => {
+                this.getUserData(
+                    res.data[0].fname,
+                    res.data[0].lname,
+                    res.data[0].bio,
+                    res.data[0].profileimgurl
+                );
+            })
+            .catch(function(err) {
+                console.log("Error in handleSubmit: ", err);
+            });
     }
 
     showModal() {
@@ -80,26 +100,13 @@ export default class App extends React.Component {
         }
     }
 
-    componentDidMount() {
-        // We will want to make an axios request to server
-        // it will do a db query to find out info about user (it will know who the user is by their login cookie i.e. req.session.id)
-        // When we have that info we can add it to setState
-        axios
-            .post("/getUserInfo")
-            .then(res => {
-                this.getUserData(
-                    res.data[0].fname,
-                    res.data[0].lname,
-                    res.data[0].bio
-                );
-            })
-            .catch(function(err) {
-                console.log("Error in handleSubmit: ", err);
-            });
-    }
-
-    getUserData(fname, lname, bio) {
-        this.setState({ fname: fname, lname: lname, bio: bio });
+    getUserData(fname, lname, bio, profileimgurl) {
+        this.setState({
+            fname: fname,
+            lname: lname,
+            bio: bio,
+            imageurl: profileimgurl
+        });
     }
 
     setImage(imageurl) {
@@ -148,21 +155,41 @@ export default class App extends React.Component {
 
                 <h3 onClick={this.showModal}>Hello from App</h3>
 
-                <Profile
-                    fname={this.state.fname}
-                    lname={this.state.lname}
-                    bio={this.state.bio}
-                    imageurl={this.state.imageurl}
-                    showModal={this.showModal}
-                    showBioEditor={this.showBioEditor}
-                    bioEditorIsVisible={this.state.bioEditorIsVisible}
-                    hideEditProfileButton={this.hideEditProfileButton}
-                    showBioAndEditProfileButton={this.showBioAndEditProfileButton}
-                    editProfileButtonIsVisible={
-                        this.state.editProfileButtonIsVisible
-                    }
-                />
-
+                <BrowserRouter>
+                    <div>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Profile
+                                    fname={this.state.fname}
+                                    lname={this.state.lname}
+                                    bio={this.state.bio}
+                                    imageurl={this.state.imageurl}
+                                    showModal={this.showModal}
+                                    showBioEditor={this.showBioEditor}
+                                    bioEditorIsVisible={
+                                        this.state.bioEditorIsVisible
+                                    }
+                                    hideEditProfileButton={
+                                        this.hideEditProfileButton
+                                    }
+                                    showBioAndEditProfileButton={
+                                        this.showBioAndEditProfileButton
+                                    }
+                                    editProfileButtonIsVisible={
+                                        this.state.editProfileButtonIsVisible
+                                    }
+                                />
+                            )}
+                        />
+                        <Route
+                            path="/user/:id"
+                            component={OtherProfile}
+                            id={this.state.id}
+                        />
+                    </div>
+                </BrowserRouter>
             </React.Fragment>
         );
     }

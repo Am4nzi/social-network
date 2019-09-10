@@ -58,3 +58,11 @@ exports.getUserInfo = function(id) {
             return rows;
         });
 };
+
+exports.getOtherProfileInfo = function(urlId) {
+    return db
+        .query(`SELECT * FROM users WHERE id=$1`, [urlId])
+        .then(({ rows }) => {
+            return rows;
+        });
+};

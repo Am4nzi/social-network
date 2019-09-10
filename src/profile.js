@@ -9,28 +9,29 @@ export default function Profile({
     imageurl,
     bioEditorIsVisible,
     editProfileButtonIsVisible,
-    showBioAndEditProfileButton,
+    showBioAndEditProfileButton
 }) {
     imageurl = imageurl || "/css/img/profiledefault.svg";
 
     return (
         <React.Fragment>
-            {console.log("editProfileButtonIsVisible in profile.js: ", {
-                editProfileButtonIsVisible
-            })}
+            {console.log("imgurl: ", imageurl)}
             <div>
                 <h1>
                     Hello {fname} {lname}
                 </h1>
                 <p>Your bio: {bio}</p>
             </div>
-            {bioEditorIsVisible && <BioEditor />}
+            {bioEditorIsVisible && <BioEditor bio={bio} />}
 
             <div>
                 {bio ? (
                     <div>
                         {editProfileButtonIsVisible && (
-                            <a onClick={showBioAndEditProfileButton} className="navbutton">
+                            <a
+                                onClick={showBioAndEditProfileButton}
+                                className="navbutton"
+                            >
                                 Edit Profile
                             </a>
                         )}
@@ -38,7 +39,10 @@ export default function Profile({
                 ) : (
                     <div>
                         {editProfileButtonIsVisible && (
-                            <a onClick={showBioAndEditProfileButton} className="navbutton">
+                            <a
+                                onClick={showBioAndEditProfileButton}
+                                className="navbutton"
+                            >
                                 Add Profile
                             </a>
                         )}
@@ -46,9 +50,8 @@ export default function Profile({
                 )}
             </div>
 
-
             <div className="bigimage">
-                <ProfilePic fname={fname} lname={lname} imageurl={imageurl} />
+                <ProfilePic imageurl={imageurl} />
             </div>
         </React.Fragment>
     );

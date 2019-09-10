@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Profilepic({ id, imageurl, showModal }) {
+export default function Profilepic({ imageurl, showModal }) {
     imageurl = imageurl || "/css/img/default.png";
 
     return (
