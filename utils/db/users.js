@@ -26,8 +26,6 @@ exports.addBio = function(id, bio) {
         });
 };
 
-
-
 exports.uploadProfilePic = function(id, profileimgurl) {
     return db
         .query(
@@ -77,4 +75,13 @@ exports.getThreeMostRecentUsers = () => {
         .then(({ rows }) => {
             return rows;
         });
+};
+
+exports.getMatchingUsers = function(val) {
+    return db.query(
+        `SELECT fname, lname, profileimgurl FROM users WHERE fname || ' ' || lname ILIKE $1;`,
+        [val + '%']
+    ).then(({ rows }) => {
+        return rows;
+    });
 };

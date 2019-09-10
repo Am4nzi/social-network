@@ -95,7 +95,6 @@ app.post("/addBio", (req, res) => {
                 // console.log("LOGGING data: ", data);
                 // console.log("LOGGING data[0]: ", data[0]);
                 // console.log("LOGGING data[0]profileimgurl: ", data[0].profileimgurl);
-                console.log("LOGGING data", data[0]);
                 res.json(data[0].bio);
             })
             .catch(err => {
@@ -169,12 +168,11 @@ app.get("/getUserInfo", (req, res) => {
 });
 
 app.get("/getOtherProfileInfo/:id", (req, res) => {
-    console.log("Logging req.params.id in /getOtherProfileInfo", req.params.id);
+    // console.log("Logging req.params.id in /getOtherProfileInfo", req.params.id);
     let removeColon = req.params.id;
     while (removeColon.charAt(0) === ":") {
         removeColon = removeColon.substr(1);
     }
-    console.log("removeColon: ", removeColon);
     db.getOtherProfileInfo(removeColon)
         .then(data => {
             // console.log(data);
@@ -188,13 +186,26 @@ app.get("/getOtherProfileInfo/:id", (req, res) => {
 app.get("/getThreeMostRecentUsers", (req, res) => {
     db.getThreeMostRecentUsers()
         .then(data => {
-            console.log(data);
             res.json(data);
         })
         .catch(err => {
-            console.log("ERROR in /addProfileImage in index.js", err);
+            console.log("ERROR in /getThreeMostRecentUsers in index.js", err);
         });
 });
+
+app.get("/getMatchingUsers/:user", (req, res) => {
+    console.log("req.params.user", req.params.user);
+    db.getMatchingUsers(req.params.user)
+        .then(data => {
+            console.log("data in /getMatchingUsers", data);
+            res.json(data);
+        })
+        .catch(err => {
+            console.log("ERROR in /getMatchingUsers in index.js", err);
+        });
+});
+
+
 
 // *******************************************
 // *************LOGOUT ROUTE******************
