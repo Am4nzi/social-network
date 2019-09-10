@@ -66,3 +66,15 @@ exports.getOtherProfileInfo = function(urlId) {
             return rows;
         });
 };
+
+exports.getThreeMostRecentUsers = () => {
+    return db
+        .query(
+            `SELECT * FROM users
+        ORDER BY id DESC
+        LIMIT 3`
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};

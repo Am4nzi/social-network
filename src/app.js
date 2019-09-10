@@ -3,6 +3,7 @@ import ProfilePic from "./profilepic";
 import Profile from "./profile";
 import Uploader from "./uploader";
 import BioEditor from "./bioeditor";
+import FindUsers from "./findusers";
 import OtherProfile from "./otherprofile";
 import axios from "./axios";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -118,6 +119,11 @@ export default class App extends React.Component {
             <React.Fragment>
                 <nav>
                     <ul className="navbar">
+
+                        <a href="/findusers" className="navbutton">
+                            Find Users
+                        </a>
+
                         <a
                             href="http://localhost:8080/welcome#/register"
                             className="navbutton"
@@ -187,6 +193,10 @@ export default class App extends React.Component {
                             path="/user/:id"
                             component={OtherProfile}
                             id={this.state.id}
+                        />
+                        <Route
+                            path="/findusers"
+                            component={FindUsers}
                         />
                     </div>
                 </BrowserRouter>

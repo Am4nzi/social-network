@@ -185,6 +185,17 @@ app.get("/getOtherProfileInfo/:id", (req, res) => {
         });
 });
 
+app.get("/getThreeMostRecentUsers", (req, res) => {
+    db.getThreeMostRecentUsers()
+        .then(data => {
+            console.log(data);
+            res.json(data);
+        })
+        .catch(err => {
+            console.log("ERROR in /addProfileImage in index.js", err);
+        });
+});
+
 // *******************************************
 // *************LOGOUT ROUTE******************
 // *******************************************
