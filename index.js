@@ -2,7 +2,7 @@
 const express = require("express");
 const app = express();
 const compression = require("compression");
-const db = require("./utils/db/users");
+const db = require("./utils/db/dbqueries");
 const { hash, compare } = require("./utils/bc");
 const uidSafe = require("uid-safe");
 const multer = require("multer");

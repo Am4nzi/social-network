@@ -46,9 +46,6 @@ export default function FindUsers() {
             {matchingUsers.length === 0 && !userName ? (
                 <ul>
                     <h4>Check out who just joined</h4>
-                    {console.log("userName: ", userName)}
-
-                    {console.log("matchingUsers", matchingUsers)}
                     {mostRecentUsers.map(user => (
                         <li key={user.id}>
                             {" "}
