@@ -47,7 +47,6 @@ app.use(
 // ***********REDIRECT IF COOKIES NOT PRESENT************
 // ******************************************************
 
-
 if (process.env.NODE_ENV != "production") {
     app.use(
         "/bundle.js",
@@ -130,7 +129,6 @@ app.post("/login", (req, res) => {
                 }
             })
             .catch(e => console.log("Error in login", e));
-        console.log("***THIS IS THE UNSUCCESSFUL POST LOGIN ROUTE SPEAKING***");
     });
 });
 
@@ -163,7 +161,7 @@ app.get("/getUserInfo", (req, res) => {
             res.json(data);
         })
         .catch(err => {
-            console.log("ERROR in /addProfileImage in index.js", err);
+            console.log("ERROR in /getUserInfo in index.js", err);
         });
 });
 
@@ -205,15 +203,75 @@ app.get("/getMatchingUsers/:user", (req, res) => {
         });
 });
 
-
-
 // *******************************************
 // *************LOGOUT ROUTE******************
 // *******************************************
 app.get("/logout", (req, res) => {
     req.session = null;
-    res.redirect("/welcome");
+    res.redirect("/welcome#/login");
 });
+
+// ************************************************
+// *************FRIENDSHIP ROUTES******************
+// ************************************************
+
+app.post("/addReceiverAndSenderIDs/:receiver_id", (req, res) => {
+    console.log("***/addReceiverAndSenderIDs/ POST ROUTE: START***");
+    console.log("DATA in Receiver and Sender ", req.params.receiver_id, req.session.userId);
+    db.addReceiverAndSenderIDs(
+        req.params.receiver_id,
+        req.session.userId
+    ).catch(err => {
+        console.log("ERROR in /addReceiverAndSenderIDs/ in index.js", err);
+    });
+});
+
+app.get("/getFriendRelationship/:user", (req, res) => {
+    console.log("***/getFriendRelationship/ GET ROUTE: START***");
+    console.log("req.params.user: ", req.params.user);
+    console.log("req.session.userId: ", req.session.userId);
+    db.getFriendRelationship(req.params.user, req.session.userId)
+        .then(data => {
+            console.log("data in /getFriendRelationship", data);
+            res.json({
+                loggedInUserCookie: req.session.userId,
+                friendship: data[0]
+            });
+        })
+        .catch(err => {
+            console.log("ERROR in /getFriendRelationship", err);
+        });
+});
+
+app.post("/setAcceptedToTrue/:acceptedStatusTrue?user", (req, res) => {
+    console.log("***/setAcceptedToTrue/ POST ROUTE: START***");
+    console.log("req.params in /setAcceptedToTrue/:acceptedStatusTrue", req.params)
+    db.addFriendRelationship(req.params.acceptedStatusTrue
+    ).catch(err => {
+        console.log("ERROR in /setAcceptedToTrue/ in index.js", err);
+    });
+});
+
+// app.post("/addFriendRelationship", (req, res) => {
+//     console.log("***/addFriendRelationship POST ROUTE: START***");
+//     db.addBio(receiver_id, sender_id, accepted)
+//         .then(data => {
+//             res.json(data[0].bio);
+//         })
+//         .catch(err => {
+//             console.log("ERROR in /addFriendRelationship in index.js", err);
+//         });
+// });
+
+// app.get("/getFriendRelationship", (req, res) => {
+//     db.getFriendRelationship()
+//         .then(data => {
+//             res.json(data);
+//         })
+//         .catch(err => {
+//             console.log("ERROR in /getFriendRelationship in index.js", err);
+//         });
+// });
 
 // app.get("/welcome", (req, res) => {
 //     if (req.session.userId) {

@@ -2,6 +2,7 @@ import React from "react";
 import ProfilePic from "./profilepic";
 import Profile from "./profile";
 import Uploader from "./uploader";
+import FriendButton from "./friendbutton";
 import BioEditor from "./bioeditor";
 import FindUsers from "./findusers";
 import OtherProfile from "./otherprofile";
@@ -149,6 +150,7 @@ export default class App extends React.Component {
                         imageurl={this.state.imageurl}
                         showModal={this.showModal}
                     />
+        
                 </nav>
 
                 {this.state.uploaderIsVisible && (

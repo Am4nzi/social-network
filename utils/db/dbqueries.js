@@ -88,3 +88,67 @@ exports.getMatchingUsers = function(val) {
         return rows;
     });
 };
+
+exports.addReceiverAndSenderIDs = (receiver_id, sender_id) => {
+    return db.query(
+        `INSERT INTO friendships (receiver_id, sender_id) VALUES
+         ($1, $2)
+         RETURNING *`,
+        [receiver_id, sender_id]
+    );
+};
+
+exports.updateUserProfileData = (age, city, url, user_id) => {
+    return db.query(
+        `INSERT INTO userprofiles (age, city, url, user_id)
+        VALUES ($1, $2, $3, $4)
+        ON CONFLICT (user_id)
+        DO UPDATE SET age = $1, city = $2, url = $3`,
+        [age, city, url, user_id]
+    );
+};
+
+exports.updateUserData = (fname, lname, email, password, user_id) => {
+    return db.query(
+        `UPDATE users
+        SET fname = $1, lname = $2, email = $3, password = $4
+        WHERE users.id = $5
+         RETURNING id`,
+        [fname, lname, email, password, user_id]
+    );
+};
+
+
+
+//********************************************
+//********FRIENDSHIPS TABLE*******************
+//********************************************
+
+exports.addReceiverAndSenderIDs = (receiver_id, sender_id) => {
+    return db.query(
+        `INSERT INTO friendships (receiver_id, sender_id) VALUES
+         ($1, $2)
+         RETURNING *`,
+        [receiver_id, sender_id]
+    );
+};
+
+exports.addFriendRelationship = (accepted) => {
+    return db.query(
+        `UPDATE INTO friendships (accepted) VALUES
+         ($1)
+         RETURNING *`,
+        [accepted]
+    );
+};
+
+exports.getFriendRelationship = function(receiver_id, sender_id) {
+    return db.query(
+        `SELECT * FROM friendships
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $2)`,
+        [receiver_id, sender_id]
+    ).then(({ rows }) => {
+        return rows;
+    });
+};

@@ -1,5 +1,6 @@
 import React from "react";
 import ProfilePic from "./profilepic";
+import FriendButton from "./friendbutton";
 import axios from "./axios";
 
 export default class OtherProfile extends React.Component {
@@ -10,7 +11,9 @@ export default class OtherProfile extends React.Component {
             lname: "",
             imageurl: "",
             bio: "",
-            id: ""
+            id: "",
+            recipientId: "",
+            truthState: ""
         };
     }
 
@@ -41,7 +44,7 @@ export default class OtherProfile extends React.Component {
                 });
                 let loggedInId = this.props.match.params.id;
                 let newNumber = loggedInId.slice(1);
-                console.log("res.data in OtherProfile", res.data);
+                this.setState({ recipientId: newNumber });
                 if (newNumber == this.state.id) {
                     location.replace("/");
                 }
@@ -70,6 +73,12 @@ export default class OtherProfile extends React.Component {
 
                 <div className="bigimage">
                     <ProfilePic imageurl={this.state.imageurl} />
+                </div>
+                <div>
+                    <FriendButton
+                        recipientId={this.props.match.params.id}
+                        truthStatus={true}
+                    />
                 </div>
             </React.Fragment>
         );
