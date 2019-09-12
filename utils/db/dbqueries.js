@@ -133,20 +133,42 @@ exports.addReceiverAndSenderIDs = (receiver_id, sender_id) => {
     );
 };
 
-exports.addFriendRelationship = (accepted) => {
+exports.updateFriendRelationship = (receiver_id, sender_id) => {
     return db.query(
-        `UPDATE INTO friendships (accepted) VALUES
-         ($1)
+        `UPDATE friendships
+        SET accepted = TRUE
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1)
          RETURNING *`,
-        [accepted]
+        [receiver_id, sender_id]
     );
 };
+
+exports.deleteFriendRelationship = (receiver_id, sender_id) => {
+    return db.query(
+        `DELETE FROM friendships
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1)
+         RETURNING *`,
+        [receiver_id, sender_id]
+    );
+};
+
+// exports.addFriendRelationship = (receiver_id, accepted) => {
+//     return db.query(
+//         `UPDATE friendships
+//         SET receiver_id = $1, accepted = $2
+//         WHERE receiver_id = $1
+//          RETURNING *`,
+//         [receiver_id, accepted]
+//     );
+// };
 
 exports.getFriendRelationship = function(receiver_id, sender_id) {
     return db.query(
         `SELECT * FROM friendships
         WHERE (receiver_id = $1 AND sender_id = $2)
-        OR (receiver_id = $2 AND sender_id = $2)`,
+        OR (receiver_id = $2 AND sender_id = $1)`,
         [receiver_id, sender_id]
     ).then(({ rows }) => {
         return rows;

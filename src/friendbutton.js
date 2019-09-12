@@ -1,33 +1,39 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
 
-export default function FriendButton({ recipientId, truthStatus }) {
-    const [recipientIdForDb, setRecipientIdForDb] = useState();
+export default function FriendButton({ recipientId }) {
     const [recipientIdForDbRel, setRecipientIdForDbRel] = useState(recipientId);
     const [receiverId, setReceiverId] = useState();
     const [senderId, setSenderId] = useState();
     const [acceptedStatus, setAcceptedStatus] = useState();
-    const [acceptedStatusTrue, setAcceptedStatusTrue] = useState(truthStatus);
     const [loggedInUserCookie, setloggedInUserCookie] = useState();
 
-    // useEffect(() => {
-    //     console.log("recipientIdForDb", recipientIdForDb);
-    //
-    //     axios
-    //         .post("/addReceiverAndSenderIDs/" + recipientIdForDb)
-    //         .then(res => {
-    //             console.log("Logging res.data in handleSubmit", res.data);
-    //         })
-    //         .catch(function(err) {
-    //             console.log("Error in handleSubmit: ", err);
-    //         });
-    // }, []);
-
-    useEffect(() => {
+    const onUserClickSendUserData = e => {
+        console.log("Logging recipientId in onUserClick: ", recipientId);
         (async () => {
             await axios
-                .post("/addReceiverAndSenderIDs/" + recipientIdForDb)
+                .post("/addReceiverAndSenderIDs/" + recipientId)
                 .then(res => {
+                    console.log(
+                        "res.data.friendship.rows[0.id in SendUserData: ",
+                        res.data.friendship.rows[0].id
+                    );
+                    console.log("res.data in SendUserData: ", res.data);
+                    let friendStatus = res.data.friendship.rows[0].accepted;
+                    let receiverId = res.data.friendship.rows[0].receiver_id;
+                    let senderId = res.data.friendship.rows[0].sender_id;
+                    let cookie = res.data.loggedInUserCookie;
+                    console.log(
+                        "!!!",
+                        friendStatus,
+                        receiverId,
+                        senderId,
+                        cookie
+                    );
+                    setloggedInUserCookie(cookie);
+                    setReceiverId(receiverId);
+                    setSenderId(senderId);
+                    setAcceptedStatus(friendStatus);
                     console.log(
                         "Logging res.data in /addReceiverAndSenderIDs/",
                         res.data
@@ -37,69 +43,97 @@ export default function FriendButton({ recipientId, truthStatus }) {
                     console.log("Error in /addReceiverAndSenderIDs/: ", err);
                 });
         })();
-    }, [recipientIdForDb]);
+    };
 
-    useEffect(() => {
+    const onUserClickSetStatusTrue = e => {
+        console.log("Logging recipientId in onUserClick: ", recipientId);
         (async () => {
-            console.log("acceptedStatusTrue in useEffect", acceptedStatusTrue);
             await axios
-                .post("/setAcceptedToTrue/" + acceptedStatusTrue + "?" + recipientIdForDb)
+                .post("/setAcceptedToTrue/" + recipientId)
                 .then(res => {
-                    console.log(
-                        "Logging res.data in /setAcceptedToTrue/",
-                        res.data
-                    );
+                    console.log("res.data in SendUserData: ", res.data);
+                    let friendStatus = res.data.friendship.rows[0].accepted;
+                    let receiverId = res.data.friendship.rows[0].receiver_id;
+                    let senderId = res.data.friendship.rows[0].sender_id;
+                    let cookie = res.data.loggedInUserCookie;
+                    console.log("DATA! ", friendStatus, receiverId, senderId, cookie);
+                    setloggedInUserCookie(cookie);
+                    setReceiverId(receiverId);
+                    setSenderId(senderId);
+                    setAcceptedStatus(friendStatus);
                 })
                 .catch(function(err) {
                     console.log("Error in /setAcceptedToTrue/: ", err);
                 });
         })();
-    }, [acceptedStatusTrue]);
+    };
+
+    const onUserClickUnfriend = e => {
+        console.log("Logging recipientId in onUserClick: ", recipientId);
+        (async () => {
+            await axios
+                .post("/unfriend/" + recipientId)
+                .then(res => {
+                    console.log("res.data in SendUserData: ", res.data);
+                    let friendStatus = res.data.friendship.rows[0].accepted;
+                    let receiverId = res.data.friendship.rows[0].receiver_id;
+                    let senderId = res.data.friendship.rows[0].sender_id;
+                    let cookie = res.data.loggedInUserCookie;
+                    console.log("DATA! ", friendStatus, receiverId, senderId, cookie);
+                    setloggedInUserCookie();
+                    setReceiverId();
+                    setSenderId();
+                    setAcceptedStatus();
+                })
+                .catch(function(err) {
+                    console.log("Error in /setAcceptedToTrue/: ", err);
+                });
+        })();
+    };
 
     useEffect(() => {
         console.log("/getFriendRelationship/ axios is running");
-        console.log("recipientIdForDbRel", recipientIdForDbRel);
         axios.get("/getFriendRelationship/" + recipientIdForDbRel).then(res => {
-            console.log("Logging res in /getFriendRelationship/ axios", res);
-            setloggedInUserCookie(res.data.loggedInUserCookie);
-            setReceiverId(res.data.friendship.receiver_id);
-            setSenderId(res.data.friendship.sender_id);
-            setAcceptedStatus(res.data.friendship.accepted).catch(function(
-                err
-            ) {
-                console.log("Error in /getFriendRelationship/ ", err);
-            });
+            console.log(
+                "res.data in /getFriendRelationship/: ",
+                res.data.friendship
+            );
+            let friendStatus = res.data.friendship.accepted;
+            let receiverId = res.data.friendship.receiver_id;
+            let senderId = res.data.friendship.sender_id;
+            let cookie = res.data.loggedInUserCookie;
+            console.log("DATA IN UNFRIEND", friendStatus, receiverId, senderId, cookie);
+            setloggedInUserCookie(cookie);
+            setReceiverId(receiverId);
+            setSenderId(senderId);
+            setAcceptedStatus(friendStatus);
         });
     }, []);
 
-    const onUserClick = e => {
-        setRecipientIdForDb(recipientId);
-        console.log("Logging recipientId in onUserClick: ", recipientId);
-    };
-
-    const onUserClickSetTrue = e => {
-        setAcceptedStatusTrue(truthStatus);
-        console.log("logging truthStatus", truthStatus)
-    }
-
-
-
-
     if (acceptedStatus === undefined) {
         console.log("I AM GETTING TO ADD FRIEND");
+        console.log(loggedInUserCookie, senderId, receiverId, acceptedStatus);
+
         return (
             <div>
-                <button className="navbutton" onClick={onUserClick}>
+                <button className="navbutton" onClick={onUserClickSendUserData}>
                     Add Friend
                 </button>
             </div>
         );
-    } else if (loggedInUserCookie === senderId && acceptedStatus === false) {
+    } else if (
+        loggedInUserCookie === receiverId &&
+        senderId &&
+        acceptedStatus === false
+    ) {
         console.log("I AM GETTING TO ACCEPT FRIEND REQUEST");
-        console.log(loggedInUserCookie, senderId, acceptedStatus);
+        console.log(loggedInUserCookie, senderId, receiverId, acceptedStatus);
         return (
             <div>
-                <button className="navbutton" onClick={onUserClickSetTrue}>
+                <button
+                    className="navbutton"
+                    onClick={onUserClickSetStatusTrue}
+                >
                     Accept Friend Request
                 </button>
             </div>
@@ -110,27 +144,21 @@ export default function FriendButton({ recipientId, truthStatus }) {
 
         return (
             <div>
-                <button className="navbutton" onClick={onUserClick}>
+                <button className="navbutton" onClick={onUserClickUnfriend}>
                     Cancel Friend Request
                 </button>
             </div>
         );
+    } else if (acceptedStatus === true) {
+        console.log("I AM GETTING TO UNFRIEND");
+        console.log(loggedInUserCookie, senderId, acceptedStatus);
+
+        return (
+            <div>
+                <button className="navbutton" onClick={onUserClickUnfriend}>
+                    Unfriend :(
+                </button>
+            </div>
+        );
     }
-    // return (
-    //     <React.Fragment>
-    //         {acceptedStatus === undefined ? (
-    //             <div>
-    //                 <button className="navbutton" onClick={onUserClick}>
-    //                     Add Friend
-    //                 </button>
-    //             </div>
-    //         ) : (
-    //             <div>
-    //                 <button className="navbutton" onClick={onUserClick}>
-    //                     Accept Friend Request
-    //                 </button>
-    //             </div>
-    //         )}
-    //     </React.Fragment>
-    // );
 }

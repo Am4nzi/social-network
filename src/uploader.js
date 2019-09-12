@@ -8,8 +8,7 @@ export default class Uploader extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             id: "id"
-
-        }
+        };
     }
 
     handleChange(e) {
@@ -51,6 +50,7 @@ export default class Uploader extends React.Component {
                 <div className="uploader-modal-wrapper">
                     <div className="uploader-modal">
                         <div className="uploader">
+                            <h2>x</h2>
                             <h3>Upload a new profile picture</h3>
 
                             <input

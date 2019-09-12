@@ -217,11 +217,17 @@ app.get("/logout", (req, res) => {
 
 app.post("/addReceiverAndSenderIDs/:receiver_id", (req, res) => {
     console.log("***/addReceiverAndSenderIDs/ POST ROUTE: START***");
-    console.log("DATA in Receiver and Sender ", req.params.receiver_id, req.session.userId);
+    // console.log("DATA in Receiver and Sender ", req.params.receiver_id, req.session.userId);
     db.addReceiverAndSenderIDs(
         req.params.receiver_id,
         req.session.userId
-    ).catch(err => {
+    ).then(data => {
+        console.log(data);
+        res.json({
+            loggedInUserCookie: req.session.userId,
+            friendship: data
+        });
+    }).catch(err => {
         console.log("ERROR in /addReceiverAndSenderIDs/ in index.js", err);
     });
 });
@@ -243,12 +249,33 @@ app.get("/getFriendRelationship/:user", (req, res) => {
         });
 });
 
-app.post("/setAcceptedToTrue/:acceptedStatusTrue?user", (req, res) => {
+app.post("/setAcceptedToTrue/:receiverid", (req, res) => {
     console.log("***/setAcceptedToTrue/ POST ROUTE: START***");
-    console.log("req.params in /setAcceptedToTrue/:acceptedStatusTrue", req.params)
-    db.addFriendRelationship(req.params.acceptedStatusTrue
-    ).catch(err => {
+    console.log("req.params in /setAcceptedToTrue/:receiver", req.params.receiverid);
+    let receiver_id = req.params.receiverid;
+    db.updateFriendRelationship(req.session.userId, receiver_id
+    ).then(data => {
+        res.json({
+            loggedInUserCookie: req.session.userId,
+            friendship: data
+        });
+    }).catch(err => {
         console.log("ERROR in /setAcceptedToTrue/ in index.js", err);
+    });
+});
+
+app.post("/unfriend/:receiverid", (req, res) => {
+    console.log("***/unfriend/ POST ROUTE: START***");
+    console.log("req.params.receiverid in /unfriend", req.params.receiverid);
+    let receiver_id = req.params.receiverid;
+    db.deleteFriendRelationship(req.session.userId, receiver_id
+    ).then(data => {
+        res.json({
+            loggedInUserCookie: req.session.userId,
+            friendship: data
+        });
+    }).catch(err => {
+        console.log("ERROR in /unfriend/ in index.js", err);
     });
 });
 
