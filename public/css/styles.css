@@ -67,6 +67,15 @@ nav ul > a:visited {
 
 }
 
+.smallimage .profile-img-container{
+    width: 60px;
+    height: 60px;
+}
+
+.smallimage .profile-img-container > img{
+    object-fit: cover;
+}
+
 .bigimage .profile-img-container{
     width: 300px;
     height: 300px;

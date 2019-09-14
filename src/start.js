@@ -1,25 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Welcome from './welcome';
-import App from './app';
+import React from "react";
+import ReactDOM from "react-dom";
+import Welcome from "./welcome";
+import App from "./app";
+import {Provider} from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxPromise from 'redux-promise';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import reducer from './reducer';
 
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 
 let elem;
-if (location.pathname === '/welcome') {
+if (location.pathname === "/welcome") {
     elem = <Welcome />;
 } else {
-    elem = <App />;
+    elem = (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
 }
 
-//This is the only place we need to call ReactDom.render
 ReactDOM.render(
-    <HelloWorld />, //This is the component
-    document.querySelector('main') //This is selecting the main element
+    <HelloWorld />,
+    document.querySelector("main") //This selects the main element
 );
 
 function HelloWorld() {
-    return (
-        <div>{elem}</div>
-
-    );
+    return <div>{elem}</div>;
 }

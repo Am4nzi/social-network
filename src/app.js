@@ -4,6 +4,7 @@ import Profile from "./profile";
 import Uploader from "./uploader";
 import FriendButton from "./friendbutton";
 import BioEditor from "./bioeditor";
+import Friends from "./friends";
 import FindUsers from "./findusers";
 import OtherProfile from "./otherprofile";
 import axios from "./axios";
@@ -120,7 +121,6 @@ export default class App extends React.Component {
             <React.Fragment>
                 <nav>
                     <ul className="navbar">
-
                         <a href="/findusers" className="navbutton">
                             Find Users
                         </a>
@@ -150,7 +150,6 @@ export default class App extends React.Component {
                         imageurl={this.state.imageurl}
                         showModal={this.showModal}
                     />
-        
                 </nav>
 
                 {this.state.uploaderIsVisible && (
@@ -191,15 +190,13 @@ export default class App extends React.Component {
                                 />
                             )}
                         />
+                        <Route path="/friends" component={Friends} />
                         <Route
                             path="/user/:id"
                             component={OtherProfile}
                             id={this.state.id}
                         />
-                        <Route
-                            path="/findusers"
-                            component={FindUsers}
-                        />
+                        <Route path="/findusers" component={FindUsers} />
                     </div>
                 </BrowserRouter>
             </React.Fragment>

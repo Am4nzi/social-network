@@ -43,7 +43,6 @@ exports.uploadProfilePic = function(id, profileimgurl) {
         });
 };
 
-
 exports.getPasswordForCheck = function(email) {
     return db
         .query(`SELECT password, id FROM users WHERE email=$1`, [email])
@@ -81,12 +80,14 @@ exports.getThreeMostRecentUsers = () => {
 };
 
 exports.getMatchingUsers = function(val) {
-    return db.query(
-        `SELECT fname, lname, profileimgurl FROM users WHERE fname || ' ' || lname ILIKE $1;`,
-        [val + '%']
-    ).then(({ rows }) => {
-        return rows;
-    });
+    return db
+        .query(
+            `SELECT fname, lname, profileimgurl FROM users WHERE fname || ' ' || lname ILIKE $1;`,
+            [val + "%"]
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
 };
 
 exports.addReceiverAndSenderIDs = (receiver_id, sender_id) => {
@@ -117,8 +118,6 @@ exports.updateUserData = (fname, lname, email, password, user_id) => {
         [fname, lname, email, password, user_id]
     );
 };
-
-
 
 //********************************************
 //********FRIENDSHIPS TABLE*******************
@@ -154,23 +153,47 @@ exports.deleteFriendRelationship = (receiver_id, sender_id) => {
     );
 };
 
-// exports.addFriendRelationship = (receiver_id, accepted) => {
-//     return db.query(
-//         `UPDATE friendships
-//         SET receiver_id = $1, accepted = $2
-//         WHERE receiver_id = $1
-//          RETURNING *`,
-//         [receiver_id, accepted]
-//     );
-// };
-
 exports.getFriendRelationship = function(receiver_id, sender_id) {
-    return db.query(
-        `SELECT * FROM friendships
+    return db
+        .query(
+            `SELECT * FROM friendships
         WHERE (receiver_id = $1 AND sender_id = $2)
         OR (receiver_id = $2 AND sender_id = $1)`,
-        [receiver_id, sender_id]
-    ).then(({ rows }) => {
-        return rows;
-    });
+            [receiver_id, sender_id]
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
 };
+
+exports.getFriendsAndWannabes = receiver_id => {
+    return db
+        .query(
+            `SELECT users.id, users.fname, users.lname, users.profileimgurl, accepted
+    FROM friendships
+    JOIN users
+    ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
+    OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
+    OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)
+    OR (accepted = false AND sender_id = $1 AND receiver_id = users.id)`,
+            [receiver_id]
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};
+
+// exports.getFriendsAndWannabesNew = () => {
+//     return db
+//         .query(
+//             `SELECT users.id, users.fname, users.lname, users.profileimgurl, accepted
+//     FROM friendships
+//     JOIN users
+//     ON (accepted = false AND receiver_id = 2 AND sender_id = users.id)
+//     OR (accepted = true AND receiver_id = 2 AND sender_id = users.id)
+//     OR (accepted = true AND sender_id = 2 AND receiver_id = users.id)`
+//         )
+//         .then(({ rows }) => {
+//             return rows;
+//         });
+// };

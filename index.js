@@ -264,6 +264,29 @@ app.post("/setAcceptedToTrue/:receiverid", (req, res) => {
     });
 });
 
+app.get("/getFriendsAndWannabes", (req, res) => {
+    console.log("***/getFriendsAndWannabes/ GET ROUTE: START***");
+    db.getFriendsAndWannabes(req.session.userId)
+        .then(data => {
+            console.log("data in /getFriendsAndWannabes/", data);
+            res.json(data);
+        })
+        .catch(err => {
+            console.log("ERROR in /getFriendsAndWannabes/", err);
+        });
+});
+
+// app.get("/getFriendsAndWannabesNew", (req, res) => {
+//     db.getFriendsAndWannabesNew()
+//         .then(data => {
+//             console.log("data in /getFriendsAndWannabes/", data);
+//             res.json(data);
+//         })
+//         .catch(err => {
+//             console.log("ERROR in /getFriendsAndWannabes/", err);
+//         });
+// });
+
 app.post("/unfriend/:receiverid", (req, res) => {
     console.log("***/unfriend/ POST ROUTE: START***");
     console.log("req.params.receiverid in /unfriend", req.params.receiverid);
@@ -278,6 +301,7 @@ app.post("/unfriend/:receiverid", (req, res) => {
         console.log("ERROR in /unfriend/ in index.js", err);
     });
 });
+
 
 // app.post("/addFriendRelationship", (req, res) => {
 //     console.log("***/addFriendRelationship POST ROUTE: START***");
