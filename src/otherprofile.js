@@ -64,21 +64,33 @@ export default class OtherProfile extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div>
-                    <h1>
-                        Hello {this.state.fname} {this.state.lname}
-                    </h1>
-                    <p>Your bio: {this.state.bio}</p>
-                </div>
+                <div className="component-outer-wrapper">
+                    <div className="component-inner-wrapper">
+                        <div className="bio-left">
+                            <div>
+                                <h1>
+                                    {this.state.fname}
+                                </h1>
+                                <div className="bigimage">
+                                    <ProfilePic
+                                        imageurl={this.state.imageurl}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <FriendButton
+                                    recipientId={this.props.match.params.id}
+                                    truthStatus={true}
+                                />
+                            </div>
 
-                <div className="bigimage">
-                    <ProfilePic imageurl={this.state.imageurl} />
-                </div>
-                <div>
-                    <FriendButton
-                        recipientId={this.props.match.params.id}
-                        truthStatus={true}
-                    />
+
+
+                        </div>
+                        <div className="bioright">
+                            <p>{this.state.fname}' bio: {this.state.bio}</p>
+                        </div>
+                    </div>
                 </div>
             </React.Fragment>
         );

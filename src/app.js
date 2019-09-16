@@ -5,6 +5,7 @@ import Uploader from "./uploader";
 import FriendButton from "./friendbutton";
 import BioEditor from "./bioeditor";
 import Friends from "./friends";
+import CurrentFriends from "./currentfriends";
 import FindUsers from "./findusers";
 import OtherProfile from "./otherprofile";
 import axios from "./axios";
@@ -24,6 +25,7 @@ export default class App extends React.Component {
             bioEditorIsVisible: false
         };
         this.showModal = this.showModal.bind(this);
+        this.hideModalOnBody = this.hideModalOnBody.bind(this);
         this.getUserData = this.getUserData.bind(this);
         this.showBioEditor = this.showBioEditor.bind(this);
         this.hideEditProfileButton = this.hideEditProfileButton.bind(this);
@@ -56,6 +58,14 @@ export default class App extends React.Component {
                 uploaderIsVisible: true
             });
         } else if (this.state.uploaderIsVisible === true) {
+            this.setState({
+                uploaderIsVisible: false
+            });
+        }
+    }
+
+    hideModalOnBody() {
+        if (this.state.uploaderIsVisible === true) {
             this.setState({
                 uploaderIsVisible: false
             });
@@ -119,6 +129,8 @@ export default class App extends React.Component {
     render() {
         return (
             <React.Fragment>
+                {console.log("THIS IS MY LOGE: ", this.showModal)}
+
                 <nav>
                     <ul className="navbar">
                         <a href="/findusers" className="navbutton">
@@ -157,10 +169,9 @@ export default class App extends React.Component {
                         setImage={imageurl =>
                             this.setState({ imageurl: imageurl })
                         }
+                        showModal={this.showModal}
                     />
                 )}
-
-                <h3 onClick={this.showModal}>Hello from App</h3>
 
                 <BrowserRouter>
                     <div>
@@ -191,6 +202,10 @@ export default class App extends React.Component {
                             )}
                         />
                         <Route path="/friends" component={Friends} />
+                        <Route
+                            path="/currentfriends"
+                            component={CurrentFriends}
+                        />
                         <Route
                             path="/user/:id"
                             component={OtherProfile}

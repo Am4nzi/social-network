@@ -2,8 +2,8 @@ import React from "react";
 import axios from "./axios";
 
 export default class Uploader extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
@@ -50,7 +50,7 @@ export default class Uploader extends React.Component {
                 <div className="uploader-modal-wrapper">
                     <div className="uploader-modal">
                         <div className="uploader">
-                            <h2>x</h2>
+                            <h2 className="closeModal" onClick={this.props.showModal}>x</h2>
                             <h3>Upload a new profile picture</h3>
 
                             <input

@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import axios from "./axios";
+import CurrentFriends from "./currentfriends";
+import Wannabes from "./wannabes";
 import { useDispatch, useSelector } from "react-redux";
 import { getFriendsAndWannabes } from "./actions";
+import axios from "./axios";
 
 export default function Friends() {
     const dispatch = useDispatch();
@@ -12,53 +14,23 @@ export default function Friends() {
     }, []);
 
     useEffect(() => {
-        console.log("/getFriendsAndWannabes axios is running");
-        axios.get("/getFriendsAndWannabes").then(res => {
-            console.log(res);
-            console.log(res.data);
-        });
+        axios.get("/getFriendsAndWannabes").then(res => {});
     }, []);
 
     return (
         <React.Fragment>
-            <div>
-                <h1>Friends List</h1>
-                <h2>These people are your friends:</h2>
-                {friendsAndWannabes &&
-                    friendsAndWannabes.map((friendsAndWannabes, index) => {
-                        if (friendsAndWannabes.accepted === true) {
-                            return (
-                                <div key={index}>
-                                    <p>{friendsAndWannabes.fname} {friendsAndWannabes.lname}</p>
-                                    <div className="profile-img-container">
-                                        <img
-                                            src={
-                                                friendsAndWannabes.profileimgurl
-                                            }
-                                        />
-                                    </div>
-                                </div>
-                            );
-                        }
-                    })}
-                <h2>These people want to be your friends:</h2>
-                {friendsAndWannabes &&
-                    friendsAndWannabes.map((friendsAndWannabes, index) => {
-                        if (friendsAndWannabes.accepted === false) {
-                            return (
-                                <div key={index}>
-                                    <p>{friendsAndWannabes.fname} {friendsAndWannabes.lname}</p>
-                                    <div className="profile-img-container">
-                                        <img
-                                            src={
-                                                friendsAndWannabes.profileimgurl
-                                            }
-                                        />
-                                    </div>
-                                </div>
-                            );
-                        }
-                    })}
+            <div className="component-outer-wrapper">
+                <div className="friends-component-inner-wrapper">
+                    <h1>Friends List</h1>
+                    <div className="currentFriends">
+                        <h2>These people are your friends:</h2>
+                    </div>
+                    <CurrentFriends />
+                    <div className="wannabes">
+                        <h2>These people want to be your friends:</h2>
+                        <Wannabes />
+                    </div>
+                </div>
             </div>
         </React.Fragment>
     );

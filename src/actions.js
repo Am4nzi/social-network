@@ -15,3 +15,19 @@ export function getFriendsAndWannabes() {
             };
         });
 }
+
+export async function unfriend(id) {
+    await axios.post(`/unfriend/${id}`);
+    return {
+        type: 'UNFRIEND',
+        id
+    };
+}
+
+export async function acceptFriendRequest(id) {
+    await axios.post(`/setAcceptedToTrue/${id}`);
+    return {
+        type: 'ACCEPT_FRIEND_REQUEST',
+        id
+    };
+}

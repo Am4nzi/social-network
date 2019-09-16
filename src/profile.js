@@ -9,49 +9,55 @@ export default function Profile({
     imageurl,
     bioEditorIsVisible,
     editProfileButtonIsVisible,
-    showBioAndEditProfileButton
+    showBioAndEditProfileButton,
+    showModal
 }) {
     imageurl = imageurl || "/css/img/profiledefault.svg";
 
     return (
         <React.Fragment>
-            {console.log("imgurl: ", imageurl)}
-            <div>
-                <h1>
-                    Hello {fname} {lname}
-                </h1>
-                <p>Your bio: {bio}</p>
-            </div>
-            {bioEditorIsVisible && <BioEditor bio={bio} />}
-
-            <div>
-                {bio ? (
-                    <div>
-                        {editProfileButtonIsVisible && (
-                            <a
-                                onClick={showBioAndEditProfileButton}
-                                className="navbutton"
-                            >
-                                Edit Profile
-                            </a>
+            <div className="component-outer-wrapper">
+                <div className="component-inner-wrapper">
+                    <div className="bio-left">
+                        <h1 className="bio-title">
+                            Hello {fname}
+                        </h1>
+                        <div onClick={showModal} className="bigimage">
+                            <ProfilePic imageurl={imageurl} />
+                        </div>
+                    </div>
+                    <div className="bioright">
+                        <div>
+                            <p>
+                                {fname}'s bio: {bio}
+                            </p>
+                        </div>
+                        {bioEditorIsVisible && <BioEditor bio={bio} />}
+                        {bio ? (
+                            <div>
+                                {editProfileButtonIsVisible && (
+                                    <a
+                                        onClick={showBioAndEditProfileButton}
+                                        className="navbutton"
+                                    >
+                                        Edit Profile
+                                    </a>
+                                )}
+                            </div>
+                        ) : (
+                            <div>
+                                {editProfileButtonIsVisible && (
+                                    <a
+                                        onClick={showBioAndEditProfileButton}
+                                        className="navbutton"
+                                    >
+                                        Add Profile
+                                    </a>
+                                )}
+                            </div>
                         )}
                     </div>
-                ) : (
-                    <div>
-                        {editProfileButtonIsVisible && (
-                            <a
-                                onClick={showBioAndEditProfileButton}
-                                className="navbutton"
-                            >
-                                Add Profile
-                            </a>
-                        )}
-                    </div>
-                )}
-            </div>
-
-            <div className="bigimage">
-                <ProfilePic imageurl={imageurl} />
+                </div>
             </div>
         </React.Fragment>
     );
