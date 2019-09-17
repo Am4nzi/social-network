@@ -47,7 +47,7 @@ export default function FindUsers() {
                 <ul>
                     <h4>Check out who just joined</h4>
                     {mostRecentUsers.map(user => (
-                        <li key={user.id}>
+                        <li key={user.id} className="findUsersGrid">
                             {" "}
                             {user.fname} {user.lname}
                             <img src={user.profileimgurl} />

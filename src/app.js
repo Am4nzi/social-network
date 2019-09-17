@@ -3,6 +3,7 @@ import ProfilePic from "./profilepic";
 import Profile from "./profile";
 import Uploader from "./uploader";
 import FriendButton from "./friendbutton";
+import {Chat} from "./chat";
 import BioEditor from "./bioeditor";
 import Friends from "./friends";
 import CurrentFriends from "./currentfriends";
@@ -129,9 +130,10 @@ export default class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-                {console.log("THIS IS MY LOGE: ", this.showModal)}
 
                 <nav>
+                    <img src="/css/img/logo.svg" className="logo" />
+
                     <ul className="navbar">
                         <a href="/findusers" className="navbutton">
                             Find Users
@@ -154,14 +156,13 @@ export default class App extends React.Component {
                         <a href="/logout" className="navbutton">
                             Logout
                         </a>
+                        <ProfilePic
+                            fname={this.state.fname}
+                            lname={this.state.lname}
+                            imageurl={this.state.imageurl}
+                            showModal={this.showModal}
+                        />
                     </ul>
-
-                    <ProfilePic
-                        fname={this.state.fname}
-                        lname={this.state.lname}
-                        imageurl={this.state.imageurl}
-                        showModal={this.showModal}
-                    />
                 </nav>
 
                 {this.state.uploaderIsVisible && (
@@ -212,6 +213,7 @@ export default class App extends React.Component {
                             id={this.state.id}
                         />
                         <Route path="/findusers" component={FindUsers} />
+                        <Route path="/chat" component={ Chat } />
                     </div>
                 </BrowserRouter>
             </React.Fragment>

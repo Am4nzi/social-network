@@ -183,6 +183,26 @@ exports.getFriendsAndWannabes = receiver_id => {
         });
 };
 
+exports.addMsgToChatsDb = (sender_id, message) => {
+    return db.query(
+        `INSERT INTO chats (sender_id, message) VALUES
+         ($1, $2)
+         RETURNING *`,
+        [sender_id, message]
+    );
+};
+
+exports.getMsgsFromChatsDb = function() {
+    return db
+        .query(
+            `SELECT * FROM chats`,
+        )
+        .then(({ rows }) => {
+            return rows;
+        });
+};
+
+
 // exports.getFriendsAndWannabesNew = () => {
 //     return db
 //         .query(

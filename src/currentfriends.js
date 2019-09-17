@@ -13,7 +13,7 @@ export default function CurrentFriends() {
 
     useEffect(() => {
         dispatch(getFriendsAndWannabes());
-    }, [friendsAndWannabes]);
+    }, []);
 
     const currentFriends = (
         <div className="friends-list">

@@ -13,7 +13,7 @@ export default function Wannabes() {
 
     useEffect(() => {
         dispatch(getFriendsAndWannabes());
-    }, [friendsAndWannabes]);
+    }, []);
 
     const wannabees = (
         <div className="friends-list">

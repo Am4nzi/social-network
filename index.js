@@ -9,6 +9,10 @@ const multer = require("multer");
 const path = require("path");
 const config = require("./config");
 const s3 = require("./s3");
+const cookieSession = require("cookie-session");
+
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 
 const diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -33,15 +37,29 @@ app.use(compression());
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use(
-    require("cookie-session")({
-        maxAge: 1000 * 60 * 60 * 24 * 365.25 * 1000,
-        secret:
-            process.env.NODE_ENV == "production"
-                ? process.env.SESS_SECRET
-                : require("./secrets").sessionSecret
-    })
-);
+// app.use(
+//     require("cookie-session")({
+//         maxAge: 1000 * 60 * 60 * 24 * 365.25 * 1000,
+//         secret:
+//             process.env.NODE_ENV == "production"
+//                 ? process.env.SESS_SECRET
+//                 : require("./secrets").sessionSecret
+//     })
+// );
+
+const cookieSessionMiddleware = cookieSession({
+    maxAge: 1000 * 60 * 60 * 24 * 365.25 * 1000,
+    secret:
+        process.env.NODE_ENV == "production"
+            ? process.env.SESS_SECRET
+            : require("./secrets").sessionSecret
+});
+
+app.use(cookieSessionMiddleware);
+
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 // ******************************************************
 // ***********REDIRECT IF COOKIES NOT PRESENT************
@@ -218,18 +236,17 @@ app.get("/logout", (req, res) => {
 app.post("/addReceiverAndSenderIDs/:receiver_id", (req, res) => {
     console.log("***/addReceiverAndSenderIDs/ POST ROUTE: START***");
     // console.log("DATA in Receiver and Sender ", req.params.receiver_id, req.session.userId);
-    db.addReceiverAndSenderIDs(
-        req.params.receiver_id,
-        req.session.userId
-    ).then(data => {
-        console.log(data);
-        res.json({
-            loggedInUserCookie: req.session.userId,
-            friendship: data
+    db.addReceiverAndSenderIDs(req.params.receiver_id, req.session.userId)
+        .then(data => {
+            console.log(data);
+            res.json({
+                loggedInUserCookie: req.session.userId,
+                friendship: data
+            });
+        })
+        .catch(err => {
+            console.log("ERROR in /addReceiverAndSenderIDs/ in index.js", err);
         });
-    }).catch(err => {
-        console.log("ERROR in /addReceiverAndSenderIDs/ in index.js", err);
-    });
 });
 
 app.get("/getFriendRelationship/:user", (req, res) => {
@@ -251,17 +268,21 @@ app.get("/getFriendRelationship/:user", (req, res) => {
 
 app.post("/setAcceptedToTrue/:receiverid", (req, res) => {
     console.log("***/setAcceptedToTrue/ POST ROUTE: START***");
-    console.log("req.params in /setAcceptedToTrue/:receiver", req.params.receiverid);
+    console.log(
+        "req.params in /setAcceptedToTrue/:receiver",
+        req.params.receiverid
+    );
     let receiver_id = req.params.receiverid;
-    db.updateFriendRelationship(req.session.userId, receiver_id
-    ).then(data => {
-        res.json({
-            loggedInUserCookie: req.session.userId,
-            friendship: data
+    db.updateFriendRelationship(req.session.userId, receiver_id)
+        .then(data => {
+            res.json({
+                loggedInUserCookie: req.session.userId,
+                friendship: data
+            });
+        })
+        .catch(err => {
+            console.log("ERROR in /setAcceptedToTrue/ in index.js", err);
         });
-    }).catch(err => {
-        console.log("ERROR in /setAcceptedToTrue/ in index.js", err);
-    });
 });
 
 app.get("/getFriendsAndWannabes", (req, res) => {
@@ -291,17 +312,17 @@ app.post("/unfriend/:receiverid", (req, res) => {
     console.log("***/unfriend/ POST ROUTE: START***");
     console.log("req.params.receiverid in /unfriend", req.params.receiverid);
     let receiver_id = req.params.receiverid;
-    db.deleteFriendRelationship(req.session.userId, receiver_id
-    ).then(data => {
-        res.json({
-            loggedInUserCookie: req.session.userId,
-            friendship: data
+    db.deleteFriendRelationship(req.session.userId, receiver_id)
+        .then(data => {
+            res.json({
+                loggedInUserCookie: req.session.userId,
+                friendship: data
+            });
+        })
+        .catch(err => {
+            console.log("ERROR in /unfriend/ in index.js", err);
         });
-    }).catch(err => {
-        console.log("ERROR in /unfriend/ in index.js", err);
-    });
 });
-
 
 // app.post("/addFriendRelationship", (req, res) => {
 //     console.log("***/addFriendRelationship POST ROUTE: START***");
@@ -338,10 +359,53 @@ app.post("/unfriend/:receiverid", (req, res) => {
 //     }
 // });
 
+io.on("connection", function(socket) {
+    console.log("socket with the id ${socket.id} is now connected");
+    if (!socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
+
+    let userId = socket.request.session.userId
+
+    db.getMsgsFromChatsDb().then(chatData => {
+        let message = chatData;
+        console.log("chatData in io: ", chatData);
+        io.sockets.emit("last ten messages", message);
+    }).catch(err => {
+        console.log("ERROR in updateChatsDb  in index.js", err);
+    });
+
+    socket.on("My amazing chat message", msg => {
+        console.log("message received");
+        console.log("and this is the message: ", msg);
+        io.sockets.emit("message from server", msg);
+        console.log("userId in 'connection'", userId);
+
+        db.addMsgToChatsDb(userId, msg).then(chatData => {
+
+        }).catch(err => {
+            console.log("ERROR in uupdateChatsDb  in index.js", err);
+        });
+
+    });
+
+    //We need to do two things in here...
+    // 1. We need to make a DB query to get the last 10 chat chat chatMessages
+    // db.getLastTenChatMessages().then(data => {
+    //Here is where we emit those messages
+    // Something like io.sockets.emit(chatMessages, data.rows)})
+    // Socket.on('new message', (msg) => {
+    // 1. Get all the info about the user i.e. a db query - pass it the userId variable above
+    // 2. Add chat message to database
+    // 3. To get the last 10 messages... could create a chat message object to send out unless what you return from the DB has all the info already in the res.
+    // 4. io.sockets.emit('new chat message variable') We are still in index.js
+    // })
+});
+
 app.get("*", function(req, res) {
     res.sendFile(__dirname + "/index.html");
 });
 
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log("I'm listening.");
 });
