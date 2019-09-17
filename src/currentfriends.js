@@ -13,7 +13,7 @@ export default function CurrentFriends() {
 
     useEffect(() => {
         dispatch(getFriendsAndWannabes());
-    }, []);
+    }, [friendsAndWannabes]);
 
     const currentFriends = (
         <div className="friends-list">
@@ -31,7 +31,7 @@ export default function CurrentFriends() {
                                             dispatch(unfriend(user.id));
                                         }}
                                     >
-                                        Unfriend :(
+                                        Unfriend... :(
                                     </button>
                                 </div>
                             </div>

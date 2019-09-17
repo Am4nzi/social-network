@@ -384,7 +384,7 @@ io.on("connection", function(socket) {
         db.addMsgToChatsDb(userId, msg).then(chatData => {
 
         }).catch(err => {
-            console.log("ERROR in uupdateChatsDb  in index.js", err);
+            console.log("ERROR in updateChatsDb  in index.js", err);
         });
 
     });

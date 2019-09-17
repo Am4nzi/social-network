@@ -40,17 +40,7 @@ export default function reducer(state = {}, action) {
         };
     }
 
-    if (action.type == 'LAST_TEN_MESSAGES') {
-        console.log("chatData in Reducer: ", action.chatData, action.profilepic)
-        state = {
-            ...state,
-            chatMessages: action.chatData,
-            profilePic: action.profilepic
-        };
-
-    }
-
-    console.log("state in reducer", state);
+    console.log("state in reducer: ", state);
     return state;
 
 }

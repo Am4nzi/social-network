@@ -19,7 +19,7 @@ export const init = store => {
 
         socket.on("last ten messages", chatData => {
             console.log(`
-                Here is where the last 10 messages are supposed to be: ${chatData}
+                This is where the last 10 messages are supposed to be: ${chatData}
                 `);
             store.dispatch(addLastTenMessages(chatData));
         });

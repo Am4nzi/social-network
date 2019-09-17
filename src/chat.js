@@ -11,7 +11,7 @@ export function Chat() {
     let userNameForChat = profilePic && profilePic[0].fname;
     console.log("fname: ", userNameForChat);
 
-    console.log("Here are my last 10 chat messages: ", chatMessages);
+    console.log("Here are my last 10 chat messages...: ", chatMessages);
 
     const keyCheck = e => {
         console.log("e.key", e.key);
@@ -51,7 +51,7 @@ export function Chat() {
                         <p>Chat messages will go here</p>
                         <p>Chat messages will go here</p>
                         <p>Chat messages will go here</p>
-                        <p>Chat messages will go here</p>
+                        <p>Chat messages will go heres</p>
 
                         {chatMessages &&
                             chatMessages.map((user, index) => {
