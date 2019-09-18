@@ -33,6 +33,7 @@ export default function Wannabes() {
                                             dispatch(
                                                 acceptFriendRequest(user.id)
                                             );
+                                            dispatch(getFriendsAndWannabes(friendsAndWannabes));
                                         }}
                                     >
                                         Add Friend

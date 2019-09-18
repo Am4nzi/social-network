@@ -13,7 +13,7 @@ export default function CurrentFriends() {
 
     useEffect(() => {
         dispatch(getFriendsAndWannabes());
-    }, [friendsAndWannabes]);
+    }, []);
 
     const currentFriends = (
         <div className="friends-list">
@@ -21,14 +21,16 @@ export default function CurrentFriends() {
                 friendsAndWannabes.map((user, index) => {
                     return (
                         <div key={index}>
-                            <div className="user" >
+                            <div className="user">
                                 <div className="profile-img-container">
                                     <img src={user.profileimgurl} />
                                 </div>
-                                <div >
-                                    <button className="navbutton"
+                                <div>
+                                    <button
+                                        className="navbutton"
                                         onClick={e => {
                                             dispatch(unfriend(user.id));
+                                            dispatch(getFriendsAndWannabes(friendsAndWannabes));
                                         }}
                                     >
                                         Unfriend... :(
@@ -42,8 +44,12 @@ export default function CurrentFriends() {
     );
     return (
         <div id="makefriend">
-            {friendsAndWannabes && !friendsAndWannabes.length && <div>Nobody is hot!</div>}
-            {friendsAndWannabes && !!friendsAndWannabes.length && currentFriends}
+            {friendsAndWannabes && !friendsAndWannabes.length && (
+                <div>Nobody is hot!</div>
+            )}
+            {friendsAndWannabes &&
+                !!friendsAndWannabes.length &&
+                currentFriends}
         </div>
     );
 }

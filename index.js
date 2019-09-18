@@ -79,6 +79,7 @@ if (process.env.NODE_ENV != "production") {
 app.post("/registration", (req, res) => {
     console.log("***REGISTRATION POST ROUTE: START***");
     console.log("LOG req.body", req.body);
+
     let fname = req.body.data.fname;
     let lname = req.body.data.lname;
     let email = req.body.data.email;
@@ -297,16 +298,7 @@ app.get("/getFriendsAndWannabes", (req, res) => {
         });
 });
 
-// app.get("/getFriendsAndWannabesNew", (req, res) => {
-//     db.getFriendsAndWannabesNew()
-//         .then(data => {
-//             console.log("data in /getFriendsAndWannabes/", data);
-//             res.json(data);
-//         })
-//         .catch(err => {
-//             console.log("ERROR in /getFriendsAndWannabes/", err);
-//         });
-// });
+
 
 app.post("/unfriend/:receiverid", (req, res) => {
     console.log("***/unfriend/ POST ROUTE: START***");
@@ -324,40 +316,7 @@ app.post("/unfriend/:receiverid", (req, res) => {
         });
 });
 
-// app.post("/addFriendRelationship", (req, res) => {
-//     console.log("***/addFriendRelationship POST ROUTE: START***");
-//     db.addBio(receiver_id, sender_id, accepted)
-//         .then(data => {
-//             res.json(data[0].bio);
-//         })
-//         .catch(err => {
-//             console.log("ERROR in /addFriendRelationship in index.js", err);
-//         });
-// });
-
-// app.get("/getFriendRelationship", (req, res) => {
-//     db.getFriendRelationship()
-//         .then(data => {
-//             res.json(data);
-//         })
-//         .catch(err => {
-//             console.log("ERROR in /getFriendRelationship in index.js", err);
-//         });
-// });
-
-// app.get("/welcome", (req, res) => {
-//     if (req.session.userId) {
-//         res.redirect("/");
-//     }
-// });
-//
-// app.get("*", function(req, res) {
-//     if (!req.session.userId) {
-//         res.redirect("/welcome");
-//     } else {
-//         res.sendFile(__dirname + "/index.html");
-//     }
-// });
+const onlineUsers = {};
 
 io.on("connection", function(socket) {
     console.log("socket with the id ${socket.id} is now connected");
@@ -365,46 +324,46 @@ io.on("connection", function(socket) {
         return socket.disconnect(true);
     }
 
-    let userId = socket.request.session.userId
+    onlineUsers[socket.id] = socket.request.session.userId;
+    console.log("socket.request.session.userId: ", socket.request.session.userId);
+    console.log("onlineUsers in io: ", socket.id);
 
-    db.getMsgsFromChatsDb().then(chatData => {
-        let message = chatData;
-        console.log("chatData in io: ", chatData);
-        io.sockets.emit("last ten messages", message);
-    }).catch(err => {
-        console.log("ERROR in updateChatsDb  in index.js", err);
-    });
+    let userId = socket.request.session.userId;
 
-    socket.on("My amazing chat message", msg => {
+    socket.on("chat data", msg => {
         console.log("message received");
         console.log("and this is the message: ", msg);
-        io.sockets.emit("message from server", msg);
         console.log("userId in 'connection'", userId);
 
-        db.addMsgToChatsDb(userId, msg).then(chatData => {
-
-        }).catch(err => {
-            console.log("ERROR in updateChatsDb  in index.js", err);
-        });
-
+        db.saveMessage(userId, msg)
+            .then(chatData => {
+                let message = chatData;
+                io.sockets.emit("chat data", message.rows);
+            })
+            .catch(err => {
+                console.log("ERROR in saveMessage in index.js", err);
+            });
     });
-
-    //We need to do two things in here...
-    // 1. We need to make a DB query to get the last 10 chat chat chatMessages
-    // db.getLastTenChatMessages().then(data => {
-    //Here is where we emit those messages
-    // Something like io.sockets.emit(chatMessages, data.rows)})
-    // Socket.on('new message', (msg) => {
-    // 1. Get all the info about the user i.e. a db query - pass it the userId variable above
-    // 2. Add chat message to database
-    // 3. To get the last 10 messages... could create a chat message object to send out unless what you return from the DB has all the info already in the res.
-    // 4. io.sockets.emit('new chat message variable') We are still in index.js
-    // })
 });
+//
+// app.get("/welcome", (req, res) => {
+//     if (req.session.userId) {
+//         res.redirect("/");
+//     }
+// });
 
 app.get("*", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
+    if (!req.session.userId && req.url != "/welcome") {
+        res.redirect("/welcome");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
 });
+
+// app.get("*", function(req, res) {
+//     console.log("req.sesssion.userId in reg: ", req.session.userId);
+//     res.sendFile(__dirname + "/index.html");
+// });
 
 server.listen(8080, function() {
     console.log("I'm listening.");

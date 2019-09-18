@@ -40,7 +40,7 @@ export default class Index extends React.Component {
     }
 
     handleError() {
-        console.log("ALL YOUR BASE ARE BELONG TO US.");
+        console.log("Error: incorrect password.");
         this.setState({
             error: true
         });
@@ -50,9 +50,8 @@ export default class Index extends React.Component {
         return (
             <div>
                 {console.log("this.error in render", this.state.error)}
-                <h1 id="helloId">Log in</h1>
-                {this.state.error && <h2>ALL YOUR BASE ARE BELONG TO US.</h2>}
-                <form onSubmit={this.handleSubmit}>
+                {this.state.error && <h2>Error: incorrect password.</h2>}
+                <form onSubmit={this.handleSubmit} className = "welcome-forms">
                     <input
                         name="email"
                         placeholder="Email"

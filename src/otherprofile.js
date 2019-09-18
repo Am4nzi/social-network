@@ -88,7 +88,7 @@ export default class OtherProfile extends React.Component {
 
                         </div>
                         <div className="bioright">
-                            <p>{this.state.fname}' bio: {this.state.bio}</p>
+                            <p>{this.state.fname} bio: {this.state.bio}</p>
                         </div>
                     </div>
                 </div>

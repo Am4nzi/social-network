@@ -1,20 +1,18 @@
 import axios from "./axios";
 
 export function getFriendsAndWannabes() {
-    return axios
-        .get("/getFriendsAndWannabes")
-        .then(({ data }) => {
-            return {
-                type: "GET_FRIENDS_AND_WANNABES",
-                friendsAndWannabes: data
-            };
-        });
+    return axios.get("/getFriendsAndWannabes").then(({ data }) => {
+        return {
+            type: "GET_FRIENDS_AND_WANNABES",
+            friendsAndWannabes: data
+        };
+    });
 }
 
 export async function unfriend(id) {
     await axios.post(`/unfriend/${id}`);
     return {
-        type: 'UNFRIEND',
+        type: "UNFRIEND",
         id
     };
 }
@@ -22,7 +20,14 @@ export async function unfriend(id) {
 export async function acceptFriendRequest(id) {
     await axios.post(`/setAcceptedToTrue/${id}`);
     return {
-        type: 'ACCEPT_FRIEND_REQUEST',
+        type: "ACCEPT_FRIEND_REQUEST",
         id
+    };
+}
+
+export async function allChatData(chatData) {
+    return {
+        type: "ALL_CHAT_DATA",
+        chatData
     };
 }

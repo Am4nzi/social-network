@@ -7,6 +7,7 @@ export default function FriendButton({ recipientId }) {
     const [senderId, setSenderId] = useState();
     const [acceptedStatus, setAcceptedStatus] = useState();
     const [loggedInUserCookie, setloggedInUserCookie] = useState();
+    console.log("DATA!!!", recipientIdForDbRel);
 
     const onUserClickSendUserData = e => {
         console.log("Logging recipientId in onUserClick: ", recipientId);

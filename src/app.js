@@ -3,7 +3,7 @@ import ProfilePic from "./profilepic";
 import Profile from "./profile";
 import Uploader from "./uploader";
 import FriendButton from "./friendbutton";
-import {Chat} from "./chat";
+import { Chat } from "./chat";
 import BioEditor from "./bioeditor";
 import Friends from "./friends";
 import CurrentFriends from "./currentfriends";
@@ -130,10 +130,10 @@ export default class App extends React.Component {
     render() {
         return (
             <React.Fragment>
-
                 <nav>
-                    <img src="/css/img/logo.svg" className="logo" />
-
+                    <a href="/">
+                        <img src="/css/img/logo.svg" className="logo" />
+                    </a>
                     <ul className="navbar">
                         <a href="/findusers" className="navbutton">
                             Find Users
@@ -164,7 +164,7 @@ export default class App extends React.Component {
                         />
                     </ul>
                 </nav>
-
+                <h2 className="strapline">Dating for celebrity aliens</h2>
                 {this.state.uploaderIsVisible && (
                     <Uploader
                         setImage={imageurl =>
@@ -213,7 +213,7 @@ export default class App extends React.Component {
                             id={this.state.id}
                         />
                         <Route path="/findusers" component={FindUsers} />
-                        <Route path="/chat" component={ Chat } />
+                        <Route path="/chat" component={Chat} />
                     </div>
                 </BrowserRouter>
             </React.Fragment>

@@ -57,8 +57,7 @@ export default class Registration extends React.Component {
             <div>
                 {console.log("this.error in render", this.state.error)}
                 {this.state.error && (<h2>A LOGIN ERROR HAS OCCURED, PLEASE TRY AGAIN.</h2>)}
-                <h1 id="helloId">Hello!</h1>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className = 'welcome-forms'>
                     <input
                         name="fname"
                         placeholder="First Name"

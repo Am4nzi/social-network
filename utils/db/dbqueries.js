@@ -183,37 +183,27 @@ exports.getFriendsAndWannabes = receiver_id => {
         });
 };
 
-exports.addMsgToChatsDb = (sender_id, message) => {
+exports.saveMessage = async function(sender_id, msg) {
+    console.log("msg plus user id in db.query ", msg);
+    // let wait = false;
+    if (msg) {
+        await db.query(
+            `
+           INSERT INTO chats (sender_id, message)
+           VALUES ($1, $2)
+           RETURNING sender_id;
+       `,
+            [sender_id, msg]
+        );
+        console.log("make new message");
+    }
+    console.log("Leaving first if");
     return db.query(
-        `INSERT INTO chats (sender_id, message) VALUES
-         ($1, $2)
-         RETURNING *`,
-        [sender_id, message]
+        `SELECT users.id, users.fname, users.profileimgurl, chats.message
+        FROM users
+        JOIN chats
+        ON (chats.sender_id = users.id)
+        ORDER BY chats.created_at DESC
+        LIMIT 10`,
     );
 };
-
-exports.getMsgsFromChatsDb = function() {
-    return db
-        .query(
-            `SELECT * FROM chats`,
-        )
-        .then(({ rows }) => {
-            return rows;
-        });
-};
-
-
-// exports.getFriendsAndWannabesNew = () => {
-//     return db
-//         .query(
-//             `SELECT users.id, users.fname, users.lname, users.profileimgurl, accepted
-//     FROM friendships
-//     JOIN users
-//     ON (accepted = false AND receiver_id = 2 AND sender_id = users.id)
-//     OR (accepted = true AND receiver_id = 2 AND sender_id = users.id)
-//     OR (accepted = true AND sender_id = 2 AND receiver_id = users.id)`
-//         )
-//         .then(({ rows }) => {
-//             return rows;
-//         });
-// };

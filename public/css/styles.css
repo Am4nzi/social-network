@@ -1,9 +1,9 @@
 html {
   background: url(/css/img/space02.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
+  /* -webkit-background-size: cover;
   -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  -o-background-size: cover; */
+  background-size: 150%;
 }
 
 
@@ -34,6 +34,10 @@ nav img {
 
 .logo{
     margin: 61px 0 0 38px;
+}
+
+.strapline {
+    margin: 34px 0 0 57px;
 }
 
 .navbar {
@@ -112,7 +116,7 @@ nav {
  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(119, 73, 150,0.95)', endColorstr='rgba(71, 51, 83,0.97)',GradientType=0);
     border-radius:10px;
     position: relative;
-    top: 61px;
+    top: 34px;
     left: 50px;
     padding: 50px;
     max-width: 50%;
@@ -158,11 +162,29 @@ display: flex;
 }
 
 .profile-img-container {
-    display: inline-block;
+    display: flex;
     width: 50px;
     height: 50px;
     cursor: pointer;
+}
 
+.chat-img-container {
+    display: flex;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.chat-img-container p {
+    align-self: center;
+    margin-left: 10px
+}
+
+.chat-img-container > img {
+    border-radius: 100%;
+    width: 100%;
+     height: 100%;
+    object-fit: cover;
 }
 
 .profile-img-container > img {
@@ -223,6 +245,32 @@ display: flex;
     display: grid;
      grid-template-columns: 50px 50px 50px 50px;
      grid-template-rows: 50px 50px 50px 50px;
+}
 
+.chat-user {
+    height: 30px;
+}
 
+.welcome-logo {
+    width: 50%;
+}
+
+.welcome-wrapper {
+    margin-top: 6%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.welcome-wrapper h1, h2 {
+    color: #EC4B6A;
+}
+
+.welcome-nav {
+    display: flex;
+}
+
+.welcome-forms {
+    margin-top: 25px;
 }
