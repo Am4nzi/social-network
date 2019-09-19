@@ -3,7 +3,7 @@ html {
   /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover; */
-  background-size: 150%;
+  background-size: 140%;
 }
 
 
@@ -25,6 +25,19 @@ nav img {
     display: flex;
     justify-content: space-between;
 
+}
+
+.online-users{
+    margin-top: 32px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.online-users p {
+    color: #ff0000;
+    margin-right: 27px;
 }
 
 .chat-messages {
@@ -89,13 +102,39 @@ nav ul > a:visited {
 
 .bio-title {
     display: inline-block;
+    color: white;
+    width: 456px;
 }
+
+.bio-left {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.biocenter {
+    display: flex;
+    flex-direction: column;
+    margin-top: 81px;
+    margin-left: -123px;
+}
+
+.otherbiocenter {
+    display: flex;
+    flex-direction: column;
+    margin-top: 81px;
+    margin-left: 23px;
+
+}
+
+
 
 .bioright {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    margin-left: 40px;
+    width: 370px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 nav {
@@ -118,10 +157,9 @@ nav {
     position: relative;
     top: 34px;
     left: 50px;
-    padding: 50px;
+    padding: 4px 50px 78px 50px;
     max-width: 50%;
     min-width: 770px;
-    height: 400px;
     max-height: 90%;
 }
 
@@ -150,6 +188,7 @@ display: flex;
 
 .bigimage {
     max-width: 300px;
+    margin-bottom: 20px;
 }
 
 .bigimage .profile-img-container{
@@ -233,6 +272,51 @@ display: flex;
     /* width: 400px; */
 }
 
+.user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.online-users-modal-wrapper {
+    position: fixed;
+    right: 305px;
+    background-color: #161138;
+}
+
+.online-users-modal {
+    position: absolute;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 162px;
+    width: 280px;
+    z-index: 7;
+    /* border: 1px solid #fff; */
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, rgba(119, 73, 150,0.95)), color-stop(1, rgba(71, 51, 83,0.97)));
+    background-color: white;
+    border: 1px solid white;
+ background:-moz-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
+ background:-webkit-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
+ background:-o-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100px);
+ background:-ms-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
+ background:linear-gradient(to bottom, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(119, 73, 150,0.95)', endColorstr='rgba(71, 51, 83,0.97)',GradientType=0);
+ -moz-border-radius:6px;
+ -webkit-border-radius:6px;
+ border-radius:6px;
+
+    /* width: 400px; */
+}
+
+.online-users-modal p {
+    line-height: 0px;
+}
+
+
 .closeModal {
     font-size: 1.8rem;
     position: absolute;
@@ -243,8 +327,27 @@ display: flex;
 
 .findUsersGrid {
     display: grid;
-     grid-template-columns: 50px 50px 50px 50px;
-     grid-template-rows: 50px 50px 50px 50px;
+     grid-template-columns: 200px 200px 200px 200px 200px 200px;
+     grid-row-gap: 20px;
+     grid-column-gap: 20px;
+}
+
+.grid-image-container {
+    width: 200px;
+    height: 200px;
+}
+
+.findUsersGrid img {
+    object-fit: cover;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.grid-text-container {
+    display: flex;
+    justify-content: center;
+    background-color: #CA5AB1;
 }
 
 .chat-user {
@@ -273,4 +376,33 @@ display: flex;
 
 .welcome-forms {
     margin-top: 25px;
+}
+
+.users-online-text {
+    cursor: pointer;
+}
+
+.search-input {
+    margin-left: 57px;
+    margin-top: 60px;
+}
+
+.search-input h2 {
+    margin: 0
+}
+
+.just-joined {
+    background-color: #3b48a9;
+    width: 194px;
+    padding: 5px 2px 5px 4px;
+}
+
+.bio-header {
+    color: white;
+}
+
+.friend-button {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 10px 0;
 }

@@ -31,3 +31,20 @@ export async function allChatData(chatData) {
         chatData
     };
 }
+
+export function onlineUsers(onlineUsersData) {
+
+    var merged = [].concat.apply([], onlineUsersData);
+
+    const uniqueUsers = Array.from(new Set(merged.map(a => a.id))).map(id => {
+        return merged.find(a => a.id === id);
+    });
+
+    console.log("merged in ACTIONS: ", merged);
+    console.log("uniqueUsers in ACTIONS: ", uniqueUsers);
+    onlineUsersData = uniqueUsers;
+    return {
+        type: "ONLINE_USERS",
+        onlineUsersData
+    };
+}

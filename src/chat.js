@@ -2,33 +2,37 @@ import React, { useEffect, useRef } from "react";
 import { socket } from "./socket";
 import { useSelector } from "react-redux";
 
-export function Chat() {
+export function Chat({ otherUser }) {
     const chatMessages = useSelector(state => state && state.chatMessages);
+    let wallData = { otherUser };
+
+    const elemRef = useRef();
+
+    useEffect(() => {
+        socket.emit("chat data", wallData);
+        console.log("!!!!elemRef", elemRef);
+        elemRef.current.scrollTop =
+            elemRef.current.scrollHeight - elemRef.current.clientHeight;
+    }, [otherUser]);
 
     const keyCheck = e => {
         console.log("e.key", e.key);
         if (e.key === "Enter") {
             e.preventDefault();
-            console.log(e.target.value);
-            socket.emit("chat data", e.target.value);
+            wallData = {
+                ...wallData,
+                message: e.target.value
+            };
+            socket.emit("chat data", wallData);
             e.target.value = "";
         }
     };
-
-    const elemRef = useRef();
-
-    useEffect(() => {
-        let value = false;
-        socket.emit("chat data", value);
-        elemRef.current.scrollTop =
-            elemRef.current.scrollHeight - elemRef.current.clientHeight;
-    }, []);
 
     return (
         <React.Fragment>
             <div className="component-outer-wrapper">
                 <div>
-                    <h1>Chat Room!</h1>
+                    <h1>Flirt before you abduct</h1>
 
                     <div className="chat-messages" ref={elemRef}>
                         {chatMessages &&
@@ -49,7 +53,6 @@ export function Chat() {
                                     </div>
                                 );
                             })}
-
                     </div>
 
                     <textarea

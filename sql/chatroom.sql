@@ -4,6 +4,7 @@ CREATE TABLE chats (
  id SERIAL PRIMARY KEY,
  sender_id INT NOT NULL REFERENCES users(id),
  message VARCHAR(1000),
+ user_wall INT DEFAULT 0,
  posted_date VARCHAR(500),
  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

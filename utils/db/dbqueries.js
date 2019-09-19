@@ -82,7 +82,7 @@ exports.getThreeMostRecentUsers = () => {
 exports.getMatchingUsers = function(val) {
     return db
         .query(
-            `SELECT fname, lname, profileimgurl FROM users WHERE fname || ' ' || lname ILIKE $1;`,
+            `SELECT fname, lname, profileimgurl, id FROM users WHERE fname || ' ' || lname ILIKE $1;`,
             [val + "%"]
         )
         .then(({ rows }) => {
@@ -184,26 +184,36 @@ exports.getFriendsAndWannabes = receiver_id => {
 };
 
 exports.saveMessage = async function(sender_id, msg) {
-    console.log("msg plus user id in db.query ", msg);
     // let wait = false;
-    if (msg) {
+    if (msg.message) {
         await db.query(
             `
-           INSERT INTO chats (sender_id, message)
-           VALUES ($1, $2)
+           INSERT INTO chats (sender_id, message, user_wall)
+           VALUES ($1, $2, $3)
            RETURNING sender_id;
        `,
-            [sender_id, msg]
+            [sender_id, msg.message, msg.otherUser ? msg.otherUser:0]
         );
-        console.log("make new message");
+
     }
-    console.log("Leaving first if");
+
+    console.log("Am I logging msg.otherUser: ", msg.otherUser ? msg.otherUser:0);
     return db.query(
-        `SELECT users.id, users.fname, users.profileimgurl, chats.message
+        `SELECT users.id, users.fname, users.profileimgurl, chats.message, chats.user_wall
         FROM users
         JOIN chats
         ON (chats.sender_id = users.id)
+        WHERE chats.user_wall = $1
         ORDER BY chats.created_at DESC
-        LIMIT 10`,
+        LIMIT 10;`,
+        [msg.otherUser ? msg.otherUser:0]
     );
+};
+
+exports.getOnlineUsers = function(id) {
+    return db
+        .query(`SELECT * FROM users WHERE id=$1`, [id])
+        .then(({ rows }) => {
+            return rows;
+        });
 };

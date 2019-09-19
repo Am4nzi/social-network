@@ -9,6 +9,8 @@ import Friends from "./friends";
 import CurrentFriends from "./currentfriends";
 import FindUsers from "./findusers";
 import OtherProfile from "./otherprofile";
+import OnlineUsers from "./onlineusers";
+import OnlineUsersText from "./onlineuserstext";
 import axios from "./axios";
 import { BrowserRouter, Route } from "react-router-dom";
 
@@ -22,11 +24,13 @@ export default class App extends React.Component {
             bio: "",
             id: "",
             uploaderIsVisible: false,
+            onlineUsersIsVisible: false,
             editProfileButtonIsVisible: true,
             bioEditorIsVisible: false
         };
         this.showModal = this.showModal.bind(this);
         this.hideModalOnBody = this.hideModalOnBody.bind(this);
+        this.showOnlineUsers = this.showOnlineUsers.bind(this);
         this.getUserData = this.getUserData.bind(this);
         this.showBioEditor = this.showBioEditor.bind(this);
         this.hideEditProfileButton = this.hideEditProfileButton.bind(this);
@@ -61,6 +65,18 @@ export default class App extends React.Component {
         } else if (this.state.uploaderIsVisible === true) {
             this.setState({
                 uploaderIsVisible: false
+            });
+        }
+    }
+
+    showOnlineUsers() {
+        if (this.state.onlineUsersIsVisible === false) {
+            this.setState({
+                onlineUsersIsVisible: true
+            });
+        } else if (this.state.onlineUsersIsVisible === true) {
+            this.setState({
+                onlineUsersIsVisible: false
             });
         }
     }
@@ -130,27 +146,23 @@ export default class App extends React.Component {
     render() {
         return (
             <React.Fragment>
+                {this.state.onlineUsersIsVisible && (
+                    <OnlineUsers showOnlineusers={this.showOnlineusers} />
+                )}
+
                 <nav>
                     <a href="/">
                         <img src="/css/img/logo.svg" className="logo" />
                     </a>
                     <ul className="navbar">
+                        <a href="/friends" className="navbutton">
+                            Your Crushes
+                        </a>
                         <a href="/findusers" className="navbutton">
-                            Find Users
+                            Find hot aliens
                         </a>
-
-                        <a
-                            href="http://localhost:8080/welcome#/register"
-                            className="navbutton"
-                        >
-                            Register
-                        </a>
-
-                        <a
-                            href="http://localhost:8080/welcome#/login"
-                            className="navbutton"
-                        >
-                            Login
+                        <a href="/chat" className="navbutton">
+                            Flirt
                         </a>
 
                         <a href="/logout" className="navbutton">
@@ -164,7 +176,11 @@ export default class App extends React.Component {
                         />
                     </ul>
                 </nav>
-                <h2 className="strapline">Dating for celebrity aliens</h2>
+                <div className="online-users">
+                    <h2 className="strapline">Dating for celebrity aliens</h2>
+                    <OnlineUsersText showOnlineUsers={this.showOnlineUsers} />
+                </div>
+
                 {this.state.uploaderIsVisible && (
                     <Uploader
                         setImage={imageurl =>
@@ -185,6 +201,7 @@ export default class App extends React.Component {
                                     lname={this.state.lname}
                                     bio={this.state.bio}
                                     imageurl={this.state.imageurl}
+                                    showOnlineUsers={this.showOnlineUser}
                                     showModal={this.showModal}
                                     showBioEditor={this.showBioEditor}
                                     bioEditorIsVisible={

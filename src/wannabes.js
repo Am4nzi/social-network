@@ -26,6 +26,7 @@ export default function Wannabes() {
                                 <div className="profile-img-container">
                                     <img src={user.profileimgurl} />
                                 </div>
+                                <p>{user.fname}</p>
                                 <div>
                                     <button
                                         className="navbutton"
@@ -36,7 +37,7 @@ export default function Wannabes() {
                                             dispatch(getFriendsAndWannabes(friendsAndWannabes));
                                         }}
                                     >
-                                        Add Friend
+                                        Fancy back
                                     </button>
                                 </div>
                             </div>

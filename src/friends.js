@@ -21,13 +21,13 @@ export default function Friends() {
         <React.Fragment>
             <div className="component-outer-wrapper">
                 <div className="friends-component-inner-wrapper">
-                    <h1>Friends List</h1>
+                    <h1>Aliens you've gravitated towards: </h1>
                     <div className="currentFriends">
-                        <h2>These people are your friends:</h2>
+                        <h2 className="bio-title">Your crushes: </h2>
                     </div>
                     <CurrentFriends />
                     <div className="wannabes">
-                        <h2>These people want to be your friends:</h2>
+                        <h2 className="bio-title">These people fancy you: </h2>
                         <Wannabes />
                     </div>
                 </div>

@@ -107,7 +107,7 @@ export default function FriendButton({ recipientId }) {
         );
     } else if (acceptedStatus === false) {
         return (
-            <div>
+            <div className ="friend-button">
                 <button className="navbutton" onClick={onUserClickUnfriend}>
                     Cancel Friend Request
                 </button>

@@ -317,16 +317,34 @@ app.post("/unfriend/:receiverid", (req, res) => {
 });
 
 const onlineUsers = {};
+let onlineUsersArray = [];
 
 io.on("connection", function(socket) {
-    console.log("socket with the id ${socket.id} is now connected");
+    console.log(`socket with the id ${socket.id} is now connected`);
     if (!socket.request.session.userId) {
+        console.log("THIS SHOULDN'T HAPPEN!!!!");
         return socket.disconnect(true);
     }
 
     onlineUsers[socket.id] = socket.request.session.userId;
-    console.log("socket.request.session.userId: ", socket.request.session.userId);
-    console.log("onlineUsers in io: ", socket.id);
+    console.log("TEST: ", socket.request.session.userId);
+
+    db.getOnlineUsers(socket.request.session.userId)
+        .then(onlineUsers => {
+            if (onlineUsersArray === []) {
+                return
+            } else {
+                onlineUsersArray.push(onlineUsers);
+            }
+
+
+            io.sockets.emit("online users", onlineUsersArray);
+
+        })
+        .catch(err => {
+            console.log("ERROR in getOnlineUsers in index.js", err);
+        });
+
 
     let userId = socket.request.session.userId;
 
@@ -344,6 +362,15 @@ io.on("connection", function(socket) {
                 console.log("ERROR in saveMessage in index.js", err);
             });
     });
+
+    socket.on("disconnect", () => {
+        onlineUsersArray = [];
+        console.log("onlineUsers: ", onlineUsers);
+        console.log("onlineUsers2: ", onlineUsers[socket.id]);
+        delete onlineUsers[socket.id];
+        console.log(`socket with the id ${socket.id} is still connceted but shouldn't be`);
+    });
+
 });
 //
 // app.get("/welcome", (req, res) => {

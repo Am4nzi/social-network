@@ -25,6 +25,7 @@ export default function CurrentFriends() {
                                 <div className="profile-img-container">
                                     <img src={user.profileimgurl} />
                                 </div>
+                                <p>{user.fname}</p>
                                 <div>
                                     <button
                                         className="navbutton"
@@ -33,7 +34,7 @@ export default function CurrentFriends() {
                                             dispatch(getFriendsAndWannabes(friendsAndWannabes));
                                         }}
                                     >
-                                        Unfriend... :(
+                                        Break heart 💔
                                     </button>
                                 </div>
                             </div>

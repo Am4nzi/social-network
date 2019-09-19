@@ -1,6 +1,7 @@
 import React from "react";
 import ProfilePic from "./profilepic";
 import FriendButton from "./friendbutton";
+import { Chat } from "./chat";
 import axios from "./axios";
 
 export default class OtherProfile extends React.Component {
@@ -68,9 +69,7 @@ export default class OtherProfile extends React.Component {
                     <div className="component-inner-wrapper">
                         <div className="bio-left">
                             <div>
-                                <h1>
-                                    {this.state.fname}
-                                </h1>
+                                <h1>{this.state.fname}</h1>
                                 <div className="bigimage">
                                     <ProfilePic
                                         imageurl={this.state.imageurl}
@@ -83,13 +82,22 @@ export default class OtherProfile extends React.Component {
                                     truthStatus={true}
                                 />
                             </div>
-
-
-
                         </div>
-                        <div className="bioright">
-                            <p>{this.state.fname} bio: {this.state.bio}</p>
+                        <div className="otherbiocenter">
+                            <div>
+                                <h2 className="bio-header">
+                                    {this.state.fname}'s bio:
+                                </h2>
+                            </div>
+                            <p> {this.state.bio}</p>
+                            <div></div>
                         </div>
+                    </div>
+                </div>
+
+                <div className="bioright">
+                    <div>
+                        <Chat otherUser={this.props.match.params.id} />
                     </div>
                 </div>
             </React.Fragment>

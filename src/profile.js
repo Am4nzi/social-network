@@ -18,19 +18,16 @@ export default function Profile({
         <React.Fragment>
             <div className="component-outer-wrapper">
                 <div className="component-inner-wrapper">
-                    <div className="bio-left">
-                        <h1 className="bio-title">
-                            Hello {fname}
-                        </h1>
+                    <div>
+                        <h1 className="bio-title">You're looking good today, {fname}</h1>
                         <div onClick={showModal} className="bigimage">
                             <ProfilePic imageurl={imageurl} />
                         </div>
                     </div>
-                    <div className="bioright">
+                    <div className="biocenter">
                         <div>
-                            <p>
-                                {fname}'s bio: {bio}
-                            </p>
+                            <h2 className="bio-header">Your bio:</h2>
+                            <p>{bio}</p>
                         </div>
                         {bioEditorIsVisible && <BioEditor bio={bio} />}
                         {bio ? (

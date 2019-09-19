@@ -47,6 +47,16 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "ONLINE_USERS") {
+        console.log(
+            "onlineUsersData in Reducer: ",
+            action.onlineUsersData,
+        );
+        state = {
+            ...state,
+            onlineUsers: action.onlineUsersData,
+        };
+    }
 
     console.log("state in reducer", state);
     return state;
