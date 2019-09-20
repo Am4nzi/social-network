@@ -55,7 +55,7 @@ export default function FindUsers() {
                             <div key={user.id}>
                                 <div className="grid-text-container">
                                     {console.log("USER!!!: ", user.id)}
-                                    {user.fname} {user.lname}
+                                    {user.fname}
                                 </div>
                                 <div className="grid-image-container">
                                     <Link to={`/user/${user.id}`}>
@@ -72,7 +72,7 @@ export default function FindUsers() {
                         {matchingUsers.map(user => (
                             <div key={user.id}>
                                 <div className="grid-text-container">
-                                    {user.fname} {user.lname}
+                                    {user.fname}
                                 </div>
                                 <div className="grid-image-container">
                                     <Link to={`/user/${user.id}`}>

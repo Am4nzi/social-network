@@ -19,7 +19,7 @@ export default function Profile({
             <div className="component-outer-wrapper">
                 <div className="component-inner-wrapper">
                     <div>
-                        <h1 className="bio-title">You're looking good today, {fname}</h1>
+                        <h1 className="bio-title">You're looking good, {fname}</h1>
                         <div onClick={showModal} className="bigimage">
                             <ProfilePic imageurl={imageurl} />
                         </div>

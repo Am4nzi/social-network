@@ -32,7 +32,7 @@ export function Chat({ otherUser }) {
         <React.Fragment>
             <div className="component-outer-wrapper">
                 <div>
-                    <h1>Flirt before you abduct</h1>
+                    <h1>Flirt with other celestial beings</h1>
 
                     <div className="chat-messages" ref={elemRef}>
                         {chatMessages &&

@@ -86,7 +86,7 @@ export default function FriendButton({ recipientId }) {
         return (
             <div>
                 <button className="navbutton" onClick={onUserClickSendUserData}>
-                    Add Friend
+                    Send crush
                 </button>
             </div>
         );
@@ -101,7 +101,7 @@ export default function FriendButton({ recipientId }) {
                     className="navbutton"
                     onClick={onUserClickSetStatusTrue}
                 >
-                    Accept Friend Request
+                    Accept crush
                 </button>
             </div>
         );
@@ -109,7 +109,7 @@ export default function FriendButton({ recipientId }) {
         return (
             <div className ="friend-button">
                 <button className="navbutton" onClick={onUserClickUnfriend}>
-                    Cancel Friend Request
+                    Cancel crush
                 </button>
             </div>
         );
@@ -117,7 +117,7 @@ export default function FriendButton({ recipientId }) {
         return (
             <div>
                 <button className="navbutton" onClick={onUserClickUnfriend}>
-                    Unfriend :(
+                    Break heart 💔
                 </button>
             </div>
         );
