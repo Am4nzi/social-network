@@ -184,7 +184,6 @@ exports.getFriendsAndWannabes = receiver_id => {
 };
 
 exports.saveMessage = async function(sender_id, msg) {
-    // let wait = false;
     if (msg.message) {
         await db.query(
             `
@@ -197,7 +196,6 @@ exports.saveMessage = async function(sender_id, msg) {
 
     }
 
-    console.log("Am I logging msg.otherUser: ", msg.otherUser ? msg.otherUser:0);
     return db.query(
         `SELECT users.id, users.fname, users.profileimgurl, chats.message, chats.user_wall
         FROM users

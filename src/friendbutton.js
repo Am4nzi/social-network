@@ -7,10 +7,8 @@ export default function FriendButton({ recipientId }) {
     const [senderId, setSenderId] = useState();
     const [acceptedStatus, setAcceptedStatus] = useState();
     const [loggedInUserCookie, setloggedInUserCookie] = useState();
-    console.log("DATA!!!", recipientIdForDbRel);
 
     const onUserClickSendUserData = e => {
-        console.log("Logging recipientId in onUserClick: ", recipientId);
         (async () => {
             await axios
                 .post("/addReceiverAndSenderIDs/" + recipientId)
@@ -31,7 +29,6 @@ export default function FriendButton({ recipientId }) {
     };
 
     const onUserClickSetStatusTrue = e => {
-        console.log("Logging recipientId in onUserClick: ", recipientId);
         (async () => {
             await axios
                 .post("/setAcceptedToTrue/" + recipientId)
@@ -52,7 +49,6 @@ export default function FriendButton({ recipientId }) {
     };
 
     const onUserClickUnfriend = e => {
-        console.log("Logging recipientId in onUserClick: ", recipientId);
         (async () => {
             await axios
                 .post("/unfriend/" + recipientId)
@@ -69,7 +65,6 @@ export default function FriendButton({ recipientId }) {
     };
 
     useEffect(() => {
-        console.log("/getFriendRelationship/ axios is running");
         axios.get("/getFriendRelationship/" + recipientIdForDbRel).then(res => {
             let friendStatus = res.data.friendship.accepted;
             let receiverId = res.data.friendship.receiver_id;

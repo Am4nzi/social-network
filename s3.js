@@ -14,15 +14,13 @@ const s3 = new aws.S3({
 });
 
 exports.upload = function(req, res, next) {
-    console.log(req.file);
     if (!req.file) {
-        console.log("ERROR in upload in s3.js");
         return res.sendStatus(500);
     }
     const { filename, mimetype, size, path } = req.file;
 
     const promise = s3.putObject({
-        Bucket: 'spicedling',
+        Bucket: 'spiced-social-network',
         ACL: 'public-read',
         Key: filename,
         Body: fs.createReadStream(path),

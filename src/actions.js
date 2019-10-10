@@ -40,8 +40,6 @@ export function onlineUsers(onlineUsersData) {
         return merged.find(a => a.id === id);
     });
 
-    console.log("merged in ACTIONS: ", merged);
-    console.log("uniqueUsers in ACTIONS: ", uniqueUsers);
     onlineUsersData = uniqueUsers;
     return {
         type: "ONLINE_USERS",

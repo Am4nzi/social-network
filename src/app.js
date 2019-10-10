@@ -53,7 +53,7 @@ export default class App extends React.Component {
                 );
             })
             .catch(function(err) {
-                console.log("Error in handleSubmit: ", err);
+                console.log("Error in /getUserInfo in app.js", err);
             });
     }
 

@@ -31,7 +31,7 @@ export default class OtherProfile extends React.Component {
                 this.getUserData(res.data[0].id);
             })
             .catch(function(err) {
-                console.log("Error in handleSubmit: ", err);
+                console.log("Error in /getUserInfo in componentDidMount in otherprofile.js: ", err);
             });
 
         axios

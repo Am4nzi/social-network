@@ -14,19 +14,16 @@ export default class Index extends React.Component {
         this.setState(
             {
                 [e.target.name]: e.target.value
-                //the console.log is in a callback to prevent hoisting due to asynchronous activity
             },
             () => console.log("this.state in handleChange:")
         );
     }
 
     handleSubmit(e) {
-        console.log("handleSubmit is running in login");
         let data = this.state;
         axios
             .post("/login", { data })
             .then(res => {
-                console.log("Logging res.data in handleSubmit", res.data);
                 if (res.data.message === "error") {
                     this.handleError();
                 } else {
@@ -49,7 +46,6 @@ export default class Index extends React.Component {
     render() {
         return (
             <div>
-                {console.log("this.error in render", this.state.error)}
                 {this.state.error && <h2>Error: incorrect password.</h2>}
                 <form onSubmit={this.handleSubmit} className = "welcome-forms">
                     <input

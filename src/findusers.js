@@ -8,9 +8,7 @@ export default function FindUsers() {
     const [mostRecentUsers, setMostRecentUsers] = useState([]);
 
     useEffect(() => {
-        console.log("");
         axios.get("/getThreeMostRecentUsers").then(res => {
-            console.log("res in /getThreeMostRecentUsers: ", res.data);
             setMostRecentUsers(res.data);
         });
     }, []);
@@ -28,9 +26,7 @@ export default function FindUsers() {
             const res = await axios.get("/getMatchingUsers/" + userName);
             if (!ignore) {
                 setmatchingUsers(res.data);
-            } else {
-                console.log("IGNORED");
-            }
+            } 
         })();
         return () => {
             ignore = true;
@@ -54,7 +50,6 @@ export default function FindUsers() {
                         {mostRecentUsers.map(user => (
                             <div key={user.id}>
                                 <div className="grid-text-container">
-                                    {console.log("USER!!!: ", user.id)}
                                     {user.fname}
                                 </div>
                                 <div className="grid-image-container">

@@ -17,7 +17,6 @@ export default function Wannabes() {
 
     const wannabees = (
         <div className="friends-list">
-            {console.log("friendsAndWannabes in wannabes: ", friendsAndWannabes)}
             {friendsAndWannabes &&
                 friendsAndWannabes.map((user, index) => {
                     return (

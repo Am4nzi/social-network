@@ -10,13 +10,11 @@ export function Chat({ otherUser }) {
 
     useEffect(() => {
         socket.emit("chat data", wallData);
-        console.log("!!!!elemRef", elemRef);
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;
     }, [otherUser]);
 
     const keyCheck = e => {
-        console.log("e.key", e.key);
         if (e.key === "Enter") {
             e.preventDefault();
             wallData = {

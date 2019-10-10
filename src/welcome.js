@@ -27,7 +27,6 @@ export default function Welcome() {
                     </div>
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Registration} />
-
                 </div>
             </React.Fragment>
         </HashRouter>

@@ -13,13 +13,9 @@ export const init = store => {
         });
 
         socket.on("online users", onlineUsersData => {
-            console.log("onlineUsersData in socket.js: ", onlineUsersData);
             store.dispatch(onlineUsers(onlineUsersData));
         });
 
-        // socket.on("last message", lastMessage => {
-        //     console.log("TEST!!!: ", lastMessage);
-        //     store.dispatch(addLastMessage(lastMessage));
-        // });
+     
     }
 };

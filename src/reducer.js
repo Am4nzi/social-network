@@ -37,10 +37,6 @@ export default function reducer(state = {}, action) {
     }
 
     if (action.type == "ALL_CHAT_DATA") {
-        console.log(
-            "chatData in Reducer: ",
-            action.chatData,
-        );
         state = {
             ...state,
             chatMessages: action.chatData,
@@ -48,16 +44,11 @@ export default function reducer(state = {}, action) {
     }
 
     if (action.type == "ONLINE_USERS") {
-        console.log(
-            "onlineUsersData in Reducer: ",
-            action.onlineUsersData,
-        );
         state = {
             ...state,
             onlineUsers: action.onlineUsersData,
         };
     }
 
-    console.log("state in reducer", state);
     return state;
 }

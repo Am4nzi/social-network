@@ -25,9 +25,7 @@ export default class BioEditor extends React.Component {
     }
 
     handleSubmit(e) {
-        console.log("handleSubmit is running");
         let data = this.state;
-        console.log("Logging data in handleSubmit: ", data);
         axios.post("/addbio", { data }).catch(function(err) {
             console.log("Error in handleSubmit: ", err);
         });
@@ -56,8 +54,6 @@ export default class BioEditor extends React.Component {
     render() {
         return (
             <React.Fragment>
-                {console.log("Logging this.props in render: ", this.props.bio)}
-                {console.log("Logging this.state in render: ", this.state)}
                 <form onSubmit={this.handleSubmitandshowEditProfileButton}>
                     {this.isEditing && (
                         <div>
