@@ -14,13 +14,28 @@ https://mars-attracts.herokuapp.com
 
 React.js, React Hooks, avaScript, Handlebars.js, Node.js / Express, Postgres / SQL, AWS / S3, Heroku, CSURF, JSX, CSS
 
+## Preview
+
+![Log in, change profile picture and change biography](https://user-images.githubusercontent.com/45455994/66659381-aebb8680-ec43-11e9-8308-5c233cfbb080.gif)
+
+Register your profile, log in and change/edit your profile picture and biography.
+
+![Search for other users and send crushes(add friends.)](https://user-images.githubusercontent.com/45455994/66659529-f3472200-ec43-11e9-85fc-a7251d88e215.gif)
+
+Search for other users and send crushes(add friends.)
+
+![Break hearts(delete friendships), accept crushes(accept friend requests) and chat in the chat room.](https://user-images.githubusercontent.com/45455994/66659647-2f7a8280-ec44-11e9-8a2d-f12e34be560c.gif)
+
+Break hearts(delete friendships), accept crushes(accept friend requests) and chat in the chat room.
+
+
 ## Features
 
 -   Users can register a profile, make edits to their profile, log out, and log back in again.
 
 -   Profile pictures and biographies can be added and changed at will on a user's profile page.
 
--   Users can send crushes (request friendship), accept crushes (accept friendship), and break hearts (delete friendship).
+-   Users can send crushes(request friendship), accept crushes(accept friendship), and break hearts(delete friendship).
 
 -   All existing friends, and friend requests can be viewed together on one page.
 
