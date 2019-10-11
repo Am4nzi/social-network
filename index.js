@@ -13,7 +13,7 @@ const cookieSession = require("cookie-session");
 const server = require("http").Server(app);
 const socketServer = app.listen(8080);
 
-const io = require("socket.io")(server, { origins: "localhost:8080 https://mymarvelousmixtape.herokuapp.com:*" }).listen(socketServer);
+const io = require("socket.io")(server, { origins: "localhost:8080 https://mars-attracts.herokuapp.com:*" }).listen(socketServer);
 
 const diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
