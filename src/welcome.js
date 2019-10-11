@@ -13,13 +13,13 @@ export default function Welcome() {
                     <h1>Dating for celebrity aliens.</h1>
                     <div className="welcome-nav">
                         <a
-                            href="http://localhost:8080/welcome#/login"
+                            href="/welcome#/login"
                             className="navbutton"
                         >
                             Login
                         </a>
                         <a
-                            href="http://localhost:8080/welcome#/register"
+                            href="/welcome#/register"
                             className="navbutton"
                         >
                             Register
