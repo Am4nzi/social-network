@@ -7,7 +7,6 @@ import axios from "./axios";
 
 export default function Friends() {
     const dispatch = useDispatch();
-    const friendsAndWannabes = useSelector(state => state.friendsAndWannabes);
 
     useEffect(() => {
         dispatch(getFriendsAndWannabes());

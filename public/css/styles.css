@@ -1,11 +1,10 @@
 html {
-  background: url(/css/img/space02.jpg) no-repeat center center fixed;
-  /* -webkit-background-size: cover;
+    background: url(/css/img/background.jpg) no-repeat center center fixed;
+    /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover; */
-  background-size: 140%;
+    background-size: 140%;
 }
-
 
 body {
     margin: 0 auto;
@@ -24,10 +23,9 @@ nav img {
     height: 110px;
     display: flex;
     justify-content: space-between;
-
 }
 
-.online-users{
+.online-users {
     margin-top: 32px;
     height: 20px;
     display: flex;
@@ -45,7 +43,7 @@ nav img {
     overflow-y: scroll;
 }
 
-.logo{
+.logo {
     margin: 61px 0 0 38px;
 }
 
@@ -65,13 +63,10 @@ nav img {
     margin-left: 10px;
 }
 
-
-
 nav ul {
     list-style-type: none;
     font-size: 1.3rem;
     text-decoration: none;
-
 }
 
 nav ul > a:link {
@@ -82,22 +77,21 @@ nav ul > a:visited {
     text-decoration: none;
 }
 
-   .navbutton {
+.navbutton {
     margin: 0 4px 0 4px;
-       background-color: white;
-    border:1px solid #3A44A0;
-   	-moz-border-radius:6px;
-   	-webkit-border-radius:6px;
-   	border-radius:6px;
-   	display:inline-block;
-   	cursor:pointer;
-   	color: #3A44A0;
-   	font-family: stratos, sans-serif;
-   	font-size:15px;
-   	font-weight:bold;
-   	padding:10px 33px;
-   	text-decoration:none;
-
+    background-color: white;
+    border: 1px solid #3a44a0;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    display: inline-block;
+    cursor: pointer;
+    color: #3a44a0;
+    font-family: stratos, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 33px;
+    text-decoration: none;
 }
 
 .bio-title {
@@ -124,10 +118,7 @@ nav ul > a:visited {
     flex-direction: column;
     margin-top: 81px;
     margin-left: 23px;
-
 }
-
-
 
 .bioright {
     display: flex;
@@ -144,16 +135,42 @@ nav {
 }
 
 .component-outer-wrapper {
-    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, rgba(119, 73, 150,0.95)), color-stop(1, rgba(71, 51, 83,0.97)));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.05, rgba(119, 73, 150, 0.95)),
+        color-stop(1, rgba(71, 51, 83, 0.97))
+    );
     background-color: white;
     border: 1px solid white;
- background:-moz-linear-gradient(top, rgba(119, 73, 150,0.96) 5%, rgba(71, 51, 83,0.97) 100%);
- background:-webkit-linear-gradient(top, rgba(119, 73, 150,0.96) 5%, rgba(71, 51, 83,0.97) 100%);
- background:-o-linear-gradient(top, rgba(119, 73, 150,0.96) 5%, rgba(71, 51, 83,0.97) 100px);
- background:-ms-linear-gradient(top, rgba(119, 73, 150,0.96) 5%, rgba(71, 51, 83,0.97) 100%);
- background:linear-gradient(to bottom, rgba(119, 73, 150,0.96) 5%, rgba(71, 51, 83,0.97) 100%);
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(119, 73, 150,0.95)', endColorstr='rgba(71, 51, 83,0.97)',GradientType=0);
-    border-radius:10px;
+    background: -moz-linear-gradient(
+        top,
+        rgba(119, 73, 150, 0.96) 5%,
+        rgba(71, 51, 83, 0.97) 100%
+    );
+    background: -webkit-linear-gradient(
+        top,
+        rgba(119, 73, 150, 0.96) 5%,
+        rgba(71, 51, 83, 0.97) 100%
+    );
+    background: -o-linear-gradient(
+        top,
+        rgba(119, 73, 150, 0.96) 5%,
+        rgba(71, 51, 83, 0.97) 100px
+    );
+    background: -ms-linear-gradient(
+        top,
+        rgba(119, 73, 150, 0.96) 5%,
+        rgba(71, 51, 83, 0.97) 100%
+    );
+    background: linear-gradient(
+        to bottom,
+        rgba(119, 73, 150, 0.96) 5%,
+        rgba(71, 51, 83, 0.97) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(119, 73, 150,0.95)', endColorstr='rgba(71, 51, 83,0.97)',GradientType=0);
+    border-radius: 10px;
     position: relative;
     top: 34px;
     left: 50px;
@@ -163,25 +180,17 @@ nav {
     max-height: 90%;
 }
 
-
-
-/* .component-outer-wrapper > * {
-    border: 1px solid black;
-
-} */
-
 .component-inner-wrapper {
-display: flex;
+    display: flex;
 }
 
-.smallimage .profile-img-container{
-
+.smallimage .profile-img-container {
     width: 60px;
     height: 60px;
     cursor: pointer;
 }
 
-.smallimage .profile-img-container > img{
+.smallimage .profile-img-container > img {
     object-fit: cover;
     cursor: pointer;
 }
@@ -191,12 +200,12 @@ display: flex;
     margin-bottom: 20px;
 }
 
-.bigimage .profile-img-container{
+.bigimage .profile-img-container {
     width: 300px;
     height: 300px;
 }
 
-.bigimage .profile-img-container > img{
+.bigimage .profile-img-container > img {
     object-fit: cover;
 }
 
@@ -216,20 +225,20 @@ display: flex;
 
 .chat-img-container p {
     align-self: center;
-    margin-left: 10px
+    margin-left: 10px;
 }
 
 .chat-img-container > img {
     border-radius: 100%;
     width: 100%;
-     height: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
 .profile-img-container > img {
     border-radius: 100%;
     width: 100%;
-     height: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -255,27 +264,49 @@ display: flex;
     width: 620px;
     height: 200px;
     z-index: 5;
-    /* border: 1px solid #fff; */
-    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, rgba(119, 73, 150,0.95)), color-stop(1, rgba(71, 51, 83,0.97)));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.05, rgba(119, 73, 150, 0.95)),
+        color-stop(1, rgba(71, 51, 83, 0.97))
+    );
     background-color: white;
     border: 1px solid white;
- background:-moz-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
- background:-webkit-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
- background:-o-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100px);
- background:-ms-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
- background:linear-gradient(to bottom, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(119, 73, 150,0.95)', endColorstr='rgba(71, 51, 83,0.97)',GradientType=0);
- -moz-border-radius:6px;
- -webkit-border-radius:6px;
- border-radius:6px;
-
-    /* width: 400px; */
+    background: -moz-linear-gradient(
+        top,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100%
+    );
+    background: -webkit-linear-gradient(
+        top,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100%
+    );
+    background: -o-linear-gradient(
+        top,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100px
+    );
+    background: -ms-linear-gradient(
+        top,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100%
+    );
+    background: linear-gradient(
+        to bottom,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(119, 73, 150,0.95)', endColorstr='rgba(71, 51, 83,0.97)',GradientType=0);
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .user {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     flex-direction: column;
 }
 
@@ -295,27 +326,49 @@ display: flex;
     margin-top: 162px;
     width: 280px;
     z-index: 7;
-    /* border: 1px solid #fff; */
-    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, rgba(119, 73, 150,0.95)), color-stop(1, rgba(71, 51, 83,0.97)));
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0.05, rgba(119, 73, 150, 0.95)),
+        color-stop(1, rgba(71, 51, 83, 0.97))
+    );
     background-color: white;
     border: 1px solid white;
- background:-moz-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
- background:-webkit-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
- background:-o-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100px);
- background:-ms-linear-gradient(top, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
- background:linear-gradient(to bottom, rgba(57, 66, 174,0.96) 5%, rgba(27, 23, 64,0.97) 100%);
- filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(119, 73, 150,0.95)', endColorstr='rgba(71, 51, 83,0.97)',GradientType=0);
- -moz-border-radius:6px;
- -webkit-border-radius:6px;
- border-radius:6px;
-
-    /* width: 400px; */
+    background: -moz-linear-gradient(
+        top,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100%
+    );
+    background: -webkit-linear-gradient(
+        top,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100%
+    );
+    background: -o-linear-gradient(
+        top,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100px
+    );
+    background: -ms-linear-gradient(
+        top,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100%
+    );
+    background: linear-gradient(
+        to bottom,
+        rgba(57, 66, 174, 0.96) 5%,
+        rgba(27, 23, 64, 0.97) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(119, 73, 150,0.95)', endColorstr='rgba(71, 51, 83,0.97)',GradientType=0);
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
 }
 
 .online-users-modal p {
     line-height: 0px;
 }
-
 
 .closeModal {
     font-size: 1.8rem;
@@ -328,9 +381,9 @@ display: flex;
 
 .findUsersGrid {
     display: grid;
-     grid-template-columns: 200px 200px 200px 200px 200px 200px;
-     grid-row-gap: 20px;
-     grid-column-gap: 20px;
+    grid-template-columns: 200px 200px 200px 200px 200px 200px;
+    grid-row-gap: 20px;
+    grid-column-gap: 20px;
 }
 
 .grid-image-container {
@@ -348,7 +401,7 @@ display: flex;
 .grid-text-container {
     display: flex;
     justify-content: center;
-    background-color: #CA5AB1;
+    background-color: #ca5ab1;
 }
 
 .chat-user {
@@ -367,8 +420,9 @@ display: flex;
     align-items: center;
 }
 
-.welcome-wrapper h1, h2 {
-    color: #EC4B6A;
+.welcome-wrapper h1,
+h2 {
+    color: #ec4b6a;
 }
 
 .welcome-nav {
@@ -389,7 +443,7 @@ display: flex;
 }
 
 .search-input h2 {
-    margin: 0
+    margin: 0;
 }
 
 .just-joined {

@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export default function OnlineUsers() {
-const onlineUsers = useSelector(state => state && state.onlineUsers);
+    const onlineUsers = useSelector(state => state && state.onlineUsers);
 
     return (
         <React.Fragment>

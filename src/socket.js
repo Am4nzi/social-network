@@ -15,7 +15,6 @@ export const init = store => {
         socket.on("online users", onlineUsersData => {
             store.dispatch(onlineUsers(onlineUsersData));
         });
-
      
     }
 };

@@ -7,7 +7,6 @@ import { createStore, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from './reducer';
-// import * as io from 'socket.io-client';
 import { init } from './socket';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
@@ -26,7 +25,7 @@ if (location.pathname === "/welcome") {
 
 ReactDOM.render(
     <HelloWorld />,
-    document.querySelector("main") //This selects the main element
+    document.querySelector("main")
 );
 
 function HelloWorld() {

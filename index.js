@@ -298,7 +298,6 @@ io.on("connection", function(socket) {
             } else {
                 onlineUsersArray.push(onlineUsers);
             }
-
             io.sockets.emit("online users", onlineUsersArray);
         })
         .catch(err => {
@@ -308,7 +307,6 @@ io.on("connection", function(socket) {
     let userId = socket.request.session.userId;
 
     socket.on("chat data", msg => {
-
         db.saveMessage(userId, msg)
             .then(chatData => {
                 let message = chatData;
@@ -333,7 +331,6 @@ app.get("*", function(req, res) {
     }
 });
 
-
-server.listen(8080, function() {
+server.listen(process.env.PORT || 8080, function() {
     console.log("I'm listening.");
 });

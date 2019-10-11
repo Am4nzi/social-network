@@ -2,10 +2,6 @@ var spicedPg = require("spiced-pg");
 
 var db = spicedPg("postgres:postgres:postgres@localhost:5432/socialnetwork");
 
-//**************************************
-//********USERS TABLE*******************
-//**************************************
-
 exports.addUser = (fname, lname, email, password, profileimgurl) => {
     return db.query(
         `INSERT INTO users (fname, lname, email, password, profileimgurl) VALUES
@@ -118,10 +114,6 @@ exports.updateUserData = (fname, lname, email, password, user_id) => {
         [fname, lname, email, password, user_id]
     );
 };
-
-//********************************************
-//********FRIENDSHIPS TABLE*******************
-//********************************************
 
 exports.addReceiverAndSenderIDs = (receiver_id, sender_id) => {
     return db.query(
