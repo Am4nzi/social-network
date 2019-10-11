@@ -1,4 +1,3 @@
-// !!The * route needs to be last in order
 const express = require("express");
 const app = express();
 const compression = require("compression");
@@ -36,16 +35,6 @@ app.use(compression());
 
 app.use(express.json());
 app.use(express.static("public"));
-
-// app.use(
-//     require("cookie-session")({
-//         maxAge: 1000 * 60 * 60 * 24 * 365.25 * 1000,
-//         secret:
-//             process.env.NODE_ENV == "production"
-//                 ? process.env.SESS_SECRET
-//                 : require("./secrets").sessionSecret
-//     })
-// );
 
 const cookieSessionMiddleware = cookieSession({
     maxAge: 1000 * 60 * 60 * 24 * 365.25 * 1000,

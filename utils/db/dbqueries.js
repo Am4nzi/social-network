@@ -1,6 +1,9 @@
 var spicedPg = require("spiced-pg");
 
-var db = spicedPg("postgres:postgres:postgres@localhost:5432/socialnetwork");
+var db = spicedPg(
+    process.env.DATABASE_URL ||
+        "postgres:postgres:postgres@localhost:5432/socialnetwork"
+);
 
 exports.addUser = (fname, lname, email, password, profileimgurl) => {
     return db.query(

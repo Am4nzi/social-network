@@ -30,8 +30,6 @@ export default class BioEditor extends React.Component {
             console.log("Error in handleSubmit: ", err);
         });
         e.preventDefault();
-
-        // this.setState({value: this.state});
     }
 
     handleSubmitandshowEditProfileButton() {

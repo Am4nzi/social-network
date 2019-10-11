@@ -1,0 +1,301 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.10 (Ubuntu 10.10-0ubuntu0.18.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: chats; Type: TABLE; Schema: public; Owner: amanzi
+--
+
+CREATE TABLE public.chats (
+    id integer NOT NULL,
+    sender_id integer NOT NULL,
+    message character varying(1000),
+    user_wall integer DEFAULT 0,
+    posted_date character varying(500),
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.chats OWNER TO amanzi;
+
+--
+-- Name: chats_id_seq; Type: SEQUENCE; Schema: public; Owner: amanzi
+--
+
+CREATE SEQUENCE public.chats_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.chats_id_seq OWNER TO amanzi;
+
+--
+-- Name: chats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: amanzi
+--
+
+ALTER SEQUENCE public.chats_id_seq OWNED BY public.chats.id;
+
+
+--
+-- Name: friendships; Type: TABLE; Schema: public; Owner: amanzi
+--
+
+CREATE TABLE public.friendships (
+    id integer NOT NULL,
+    receiver_id integer NOT NULL,
+    sender_id integer NOT NULL,
+    accepted boolean DEFAULT false,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.friendships OWNER TO amanzi;
+
+--
+-- Name: friendships_id_seq; Type: SEQUENCE; Schema: public; Owner: amanzi
+--
+
+CREATE SEQUENCE public.friendships_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.friendships_id_seq OWNER TO amanzi;
+
+--
+-- Name: friendships_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: amanzi
+--
+
+ALTER SEQUENCE public.friendships_id_seq OWNED BY public.friendships.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: amanzi
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    fname character varying(100) NOT NULL,
+    lname character varying(100) NOT NULL,
+    email character varying(50) NOT NULL,
+    bio character varying,
+    password character varying NOT NULL,
+    profileimgurl character varying,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.users OWNER TO amanzi;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: amanzi
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO amanzi;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: amanzi
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: chats id; Type: DEFAULT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.chats ALTER COLUMN id SET DEFAULT nextval('public.chats_id_seq'::regclass);
+
+
+--
+-- Name: friendships id; Type: DEFAULT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.friendships ALTER COLUMN id SET DEFAULT nextval('public.friendships_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: chats; Type: TABLE DATA; Schema: public; Owner: amanzi
+--
+
+COPY public.chats (id, sender_id, message, user_wall, posted_date, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: friendships; Type: TABLE DATA; Schema: public; Owner: amanzi
+--
+
+COPY public.friendships (id, receiver_id, sender_id, accepted, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: amanzi
+--
+
+COPY public.users (id, fname, lname, email, bio, password, profileimgurl, created_at) FROM stdin;
+16	Galactus	Galaxy	galactus@gmail.com	\N	$2a$10$RzW9PCP.Pg93949k5AjvSOGLBp3AlhiZgQ2dGnNzMNhJ6Xb0UVMSq	https://s3.amazonaws.com/spiced-social-network/LjSwpRJE-HnYiHJBEjcPkq2-rUZpuByT.jpg	2019-10-10 18:41:39.152399
+17	Godzilla	God	godzilla@gmail.com	\N	$2a$10$9rNzC7wtjjQKvR6/gRkKCuAlx.YRHCbW/GSMVmNUWyN5jEwEVHfHq	https://s3.amazonaws.com/spiced-social-network/Ow2m_VO4ZltV-2EcZUBVXOf5k3giuwI2.jpg	2019-10-10 18:44:52.186723
+1	Yoda	Jedi	yoda@gmail.com	To love, or not to love. The question that is.	$2a$10$G/5/htl4jsOM4BQCXRdbu.9Kbie2kSo5vhX.wlhbclebuR7b..Nde	https://s3.amazonaws.com/spiced-social-network/c7HO2nHkybwFFP3vk83g6LF1CO89eM83.jpg	2019-10-10 17:40:23.226442
+2	Gamora	Zen Whoberi 	gamora@gmail.com	\N	$2a$10$ibHUAPT1TqFe6XpDctUOduwNhON/cO.pJwHrZWp4BiP0BIwfRYBkC	https://s3.amazonaws.com/spiced-social-network/nalFHmQ_e8en5OIHkr4v-hx5DHsx9wL5.jpg	2019-10-10 18:11:20.266657
+3	E.T.	Alien	et@gmail.com	\N	$2a$10$kFIdjyrIGOmUy5Py/ZgGmuHK.M2bmJUbbm.yq0bJ6KQbZVzYhqgKW	https://s3.amazonaws.com/spiced-social-network/HeWPnveIZVNoA89ZFCdmMdqpQYr0LN8b.jpg	2019-10-10 18:12:40.026526
+4	Xenomorph	Alien	xenomorph@gmail.com	\N	$2a$10$bY5qTmWDjkRVyF1WcgqavOfliY9Yw6j2Dd7ZiT3Eac2wimXt4x1d6	https://s3.amazonaws.com/spiced-social-network/K7GOgy56JT_eois07OfgZ7sS4tz_mDYh.jpg	2019-10-10 18:13:49.740616
+5	K'Ehleyr	Klingon	kehleyr@gmail.com	\N	$2a$10$VJTpT/KY30hOr9UwSwl3Du8PojZ2jfSnNO6s8VruyXbX./nKd6B2K	https://s3.amazonaws.com/spiced-social-network/O4abtkN0UwaP_HHfVU1hxlttFey7PnSI.jpg	2019-10-10 18:15:41.598133
+18	Gorn	Alien	gorn@gmail.com	\N	$2a$10$r8EbU7RzXXfmwVtxu6mLnee8uKDjL99DSvK7MRW00IkyxaZ9u9Hha	https://s3.amazonaws.com/spiced-social-network/YqDHc4W3T8OKqFhAy-yemspCuHM5ua12.jpg	2019-10-10 18:46:48.870892
+19	Gonzo	Muppet	gonzo@gmail.com	\N	$2a$10$71ttaVWule35x3kXlxmZT.eq6QH4m9Wol2ks2Pk9J5L7NkFhNLdJC	https://s3.amazonaws.com/spiced-social-network/BhHZS0r5qzyGe9XVzLu31qdzYDdrP5zj.jpg	2019-10-10 18:47:51.44882
+6	Inva	Alien	inva@gmail.com	\N	$2a$10$kr/JMXCNX6PnR/0XjadJOuhVaaarcDHgLNwuhNHO6hWAbKEw.iC7u	https://s3.amazonaws.com/spiced-social-network/rkle6-CGq8Zlya5VXltrUTbdSR7cZFmM.jpg	2019-10-10 18:16:58.939533
+7	Alf	Alien	alf@gmail.com	\N	$2a$10$1a5OzdYNDizZvZuqwmc/H.8RdAJYf8kWXzTKxDXaiI.3AQsOxAbmq	https://s3.amazonaws.com/spiced-social-network/_JB2cwqDmaY539JvM7NbmwExscncdpnp.jpeg	2019-10-10 18:20:26.656518
+8	Jar Jar	Binks	jarjar@gmail.com	\N	$2a$10$jTkqEyrfy9SowOwDUVGmw.wIIABLtQ5Vfq3AogUuF2BqlMsd0hMXy	https://s3.amazonaws.com/spiced-social-network/qRPMdd1DRmxaYJeE896JfZgKAe3G6Dr7.jpeg	2019-10-10 18:21:51.038975
+9	Chewie	Wookie	chewie@gmail.com	\N	$2a$10$tPTAyhi0bG8ScPLRQzeKTO/oxmUvuCKIDotxF./BNjPFLcofqo4A.	https://s3.amazonaws.com/spiced-social-network/Jkbkm1Ax3nCNx_tViR3Yfj-wL7cTxEyw.jpeg	2019-10-10 18:23:03.260521
+10	Na'vi	Alien	navi@gmail.com	\N	$2a$10$E32A21A6zRrm0V0/rkN.H.0qd69GIqNE3Miw5L0VfehzSpXCSQMFe	https://s3.amazonaws.com/spiced-social-network/j_VZMMoUm8qIuIcm5K8xHPjZE7gLKXbr.jpg	2019-10-10 18:24:16.087539
+11	Serleena	Alien	serleena@gmail.com	\N	$2a$10$M9HKfgODv3nrajFaKbifCeP06sK5WkdHK08SsYtSVV1jb7b7cXhUy	https://s3.amazonaws.com/spiced-social-network/OWVd21iPehu5KEPZpu0PK103YmkL2_qt.png	2019-10-10 18:30:16.476301
+12	Greedo	ShootsLast	greedo@gmail.com	\N	$2a$10$.fSN7Gjnv7JmAV.duXFv2.oczj7AT2SDBJ6wjQZSTUyfyWK9sjEde	https://s3.amazonaws.com/spiced-social-network/C9QOfCwpGK-oM97m5a9cI4yKmysI4BT_.jpg	2019-10-10 18:32:45.17763
+13	Jabba	DaHut	jabba@gmail.com	\N	$2a$10$y7KgnVIB/ChruRJyj469Y.j5/aqYg3K1U1iT0qZ4Qd2DEOonsit5y	https://s3.amazonaws.com/spiced-social-network/KeW8cIzxSyL9EVzspmp3KpkQKGN5ZCi3.jpg	2019-10-10 18:33:33.989594
+14	Ayla	Secura	ayla@gmail.com	\N	$2a$10$CeUaWHhWlgZhCKFluYEd9ObfbXE0o6GGzUGBnnSVfdmHkHuL/V3T6	https://s3.amazonaws.com/spiced-social-network/NYyVztKzsn04JX08G4TwCnxK4tRj2qxW.jpg	2019-10-10 18:34:54.155227
+15	Ro-Laren	Alien	rolaren@gmail.com	\N	$2a$10$7F8F8CUZTGibo6PDOTZqLuuTbVwwUPixWbLAubXD6AVmKOnq30sIi	https://s3.amazonaws.com/spiced-social-network/02uB9aGVFjt5Zv045nfY7oyXYxE6Uf_0.webp	2019-10-10 18:38:32.112299
+20	Gartogg	Gammorean	gartogg@gmail.com	\N	$2a$10$nHHM8./b3Rq26eT0o2wHnOAbP65y5DdpvKiQOjQO0cWohLXqZ3tS6	https://s3.amazonaws.com/spiced-social-network/iV7AFCeOBT551GTELihBHywtoY8V_VY0.jpeg	2019-10-10 18:51:08.824313
+21	Gigan	Godzilla	gigan@gmail.com	\N	$2a$10$WZq2Ftn4wg0GAsmbqaFMJ.LtCHiomwqHlR2SqtD3R2qyhkxvTtnFa	https://s3.amazonaws.com/spiced-social-network/pS4t_GkMkXA7Iac4WNyDXcJ3tiu2IpdI.jpg	2019-10-10 18:56:55.371273
+22	Cthulhu	Evil	cthulhu@gmail.com	\N	$2a$10$a4yySxY3bMsK/.02vw9pzeDdnGULIlZIMIfsk4oWlwFiwhPY3Zl9.	https://s3.amazonaws.com/spiced-social-network/yFfYWtZrob3HpaIW-t1m77CPt0VKDPbI.jpg	2019-10-10 18:59:23.04543
+23	Dalek	Mc'Dale	dalek@gmail.com	\N	$2a$10$Gp//6oHKv16/Rw3ADjEvYufyFHLiFkfX8SqEhd/xM0hk4sr9Qf3iO	https://s3.amazonaws.com/spiced-social-network/L3z39bqXQ8Ea1KExODoi6ZwgjXbjt8rm.jpg	2019-10-10 19:01:51.346772
+24	Paploo	Ewok	paploo@gmail.com	\N	$2a$10$TUEB0EUo4tGDUKQhH3JGzO7FlOvwGjv7IeJgHvaduyxWYc/l5i1pa	https://s3.amazonaws.com/spiced-social-network/jKOLSJ99JlFyYSZI1k7uSE64vmXJG5QM.png	2019-10-10 19:06:12.513766
+\.
+
+
+--
+-- Name: chats_id_seq; Type: SEQUENCE SET; Schema: public; Owner: amanzi
+--
+
+SELECT pg_catalog.setval('public.chats_id_seq', 1, false);
+
+
+--
+-- Name: friendships_id_seq; Type: SEQUENCE SET; Schema: public; Owner: amanzi
+--
+
+SELECT pg_catalog.setval('public.friendships_id_seq', 1, false);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: amanzi
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 24, true);
+
+
+--
+-- Name: chats chats_pkey; Type: CONSTRAINT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.chats
+    ADD CONSTRAINT chats_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: friendships friendships_pkey; Type: CONSTRAINT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.friendships
+    ADD CONSTRAINT friendships_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: chats chats_sender_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.chats
+    ADD CONSTRAINT chats_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES public.users(id);
+
+
+--
+-- Name: friendships friendships_receiver_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.friendships
+    ADD CONSTRAINT friendships_receiver_id_fkey FOREIGN KEY (receiver_id) REFERENCES public.users(id);
+
+
+--
+-- Name: friendships friendships_sender_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: amanzi
+--
+
+ALTER TABLE ONLY public.friendships
+    ADD CONSTRAINT friendships_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES public.users(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
