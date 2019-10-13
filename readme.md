@@ -8,6 +8,8 @@ The main purpose of the project was to teach us React, and was built in stages, 
 
 ## Demo
 
+**Note: The registration and image upload functionality has been disabled to prevent unsolicited text and images being uploaded**
+
 https://mars-attracts.herokuapp.com
 
 ## Technology used
@@ -26,7 +28,7 @@ Search for other users and send crushes(add friends.)
 
 ![Break hearts(delete friendships), accept crushes(accept friend requests) and chat in the chat room.](https://user-images.githubusercontent.com/45455994/66659647-2f7a8280-ec44-11e9-8a2d-f12e34be560c.gif)
 
-Break hearts(delete friendships), accept crushes(accept friend requests) and chat in the chat room.
+Break hearts (delete friendships), accept crushes (accept friend requests) and chat in the chat room.
 
 
 ## Features
@@ -35,7 +37,7 @@ Break hearts(delete friendships), accept crushes(accept friend requests) and cha
 
 -   Profile pictures and biographies can be added and changed at will on a user's profile page.
 
--   Users can send crushes(request friendship), accept crushes(accept friendship), and break hearts(delete friendship).
+-   Users can send crushes (request friendship), accept crushes (accept friendship), and break hearts (delete friendship).
 
 -   All existing friends, and friend requests can be viewed together on one page.
 

@@ -11,6 +11,14 @@ export default class Uploader extends React.Component {
         };
     }
 
+    // To reanable the registration function, comment out the alertUser function and amend the butotn in render to this.handleSubmit
+
+    alertUser() {
+        alert(
+            "The image upload function has been disabled for security reasons"
+        );
+    }
+
     handleChange(e) {
         this.setState(
             {
@@ -52,7 +60,7 @@ export default class Uploader extends React.Component {
                                 accept="image/*"
                                 onChange={this.handleChange}
                             />
-                            <button onClick={this.handleSubmit}>submit</button>
+                            <button onClick={this.alertUser}>submit</button>
                         </div>
                     </div>
                 </div>
