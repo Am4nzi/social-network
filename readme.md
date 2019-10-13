@@ -10,11 +10,10 @@ The main purpose of the project was to teach us React, and was built in stages, 
 
 **Note: The registration and image upload functionality has been disabled to prevent unsolicited text and images being uploaded**
 
-_ You can login using: 
+You can login using: 
 
 -   username: yoda@gmail.com
 -   password: y
-_
 
 https://mars-attracts.herokuapp.com
 
