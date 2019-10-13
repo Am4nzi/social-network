@@ -2,7 +2,7 @@
 
 "Mars Attracts" is a fictional dating website for celebrity aliens, made using React. The functionality is similar to that of a social network, with users being able to register and login, request, add and remove friends, chat in the chat room, and write on other user's 'walls'. This project was completed during my time at [SPICED Academy](https://www.spiced.academy/program/full-stack-web-development/), where I studied from July - August 2019.
 
-The main purpose of the project was to teach us React, and was built in stages, with Redux being introduced later in the project. The code makes use of class components, function components with hooks, and pages which make use of redux and some which don't. This was deliberate in order for us to learn React from the ground up. Future react projects will be more cohesive. 
+The main purpose of the project was to teach us React, and was built in stages, with Redux being introduced later in the project. The code may seem inconsistent, with some components being class components, others being function components with hooks, and Redux used only in certain components. This was deliberate as new technologies were introduced to us piece by piece. Future React projects will be more cohesive. 
 
 ---
 
@@ -40,11 +40,11 @@ Break hearts (delete friendships), accept crushes (accept friend requests) and c
 
 -   Users can register a profile, make edits to their profile, log out, and log back in again.
 
--   Profile pictures and biographies can be added and changed at will on a user's profile page.
+-   Users can edit their profile pictures and biographies at any time on their profile page.
 
 -   Users can send crushes (request friendship), accept crushes (accept friendship), and break hearts (delete friendship).
 
--   All existing friends, and friend requests can be viewed together on one page.
+-   All existing friends, and friend requests, can be viewed together on one page.
 
 -   A chatroom exists where users can "flirt" with each other in real time, this was built using socket.io.
 
