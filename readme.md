@@ -19,7 +19,7 @@ https://mars-attracts.herokuapp.com
 
 ## Technology used
 
-React.js, React Hooks, avaScript, Handlebars.js, Node.js / Express, Postgres / SQL, AWS / S3, Heroku, CSURF, JSX, CSS
+React.js, React Hooks, JavaScript, Redux, Node.js / Express, Postgres / SQL, AWS / S3, Heroku, CSURF, JSX, CSS
 
 ## Preview
 
