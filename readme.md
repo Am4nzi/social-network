@@ -71,5 +71,3 @@ Break hearts (delete friendships), accept crushes (accept friend requests) and c
 -   Refactor the code to make it mobile responsive
 
 -   Refactor code to use Redux and React Hooks throughout
-
--   Fix a bug which sometimes displays the wrong number of online users
